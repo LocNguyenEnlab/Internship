@@ -1,0 +1,11 @@
+C:\Github\TinyCRM\TinyCRM\bin\Debug\netcoreapp2.1\TinyCRM.deps.json
+C:\Github\TinyCRM\TinyCRM\bin\Debug\netcoreapp2.1\TinyCRM.runtimeconfig.json
+C:\Github\TinyCRM\TinyCRM\bin\Debug\netcoreapp2.1\TinyCRM.runtimeconfig.dev.json
+C:\Github\TinyCRM\TinyCRM\bin\Debug\netcoreapp2.1\TinyCRM.dll
+C:\Github\TinyCRM\TinyCRM\bin\Debug\netcoreapp2.1\TinyCRM.pdb
+C:\Github\TinyCRM\TinyCRM\obj\Debug\netcoreapp2.1\TinyCRM.csprojAssemblyReference.cache
+C:\Github\TinyCRM\TinyCRM\obj\Debug\netcoreapp2.1\TinyCRM.csproj.CoreCompileInputs.cache
+C:\Github\TinyCRM\TinyCRM\obj\Debug\netcoreapp2.1\TinyCRM.AssemblyInfoInputs.cache
+C:\Github\TinyCRM\TinyCRM\obj\Debug\netcoreapp2.1\TinyCRM.AssemblyInfo.cs
+C:\Github\TinyCRM\TinyCRM\obj\Debug\netcoreapp2.1\TinyCRM.dll
+C:\Github\TinyCRM\TinyCRM\obj\Debug\netcoreapp2.1\TinyCRM.pdb

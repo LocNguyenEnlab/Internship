@@ -1,0 +1,11 @@
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\bin\Debug\ToDoAppPhase1.exe.config
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\bin\Debug\ToDoAppPhase1.exe
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\bin\Debug\ToDoAppPhase1.pdb
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase1.csprojAssemblyReference.cache
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase1.Form1.resources
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase1.FormAddTask.resources
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase1.Properties.Resources.resources
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase1.csproj.GenerateResource.cache
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase1.csproj.CoreCompileInputs.cache
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase1.exe
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase1.pdb

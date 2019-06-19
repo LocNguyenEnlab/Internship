@@ -1,0 +1,10 @@
+C:\Github\WinformCalculator\WinformCalculator\bin\Debug\WinformCalculator.exe.config
+C:\Github\WinformCalculator\WinformCalculator\bin\Debug\WinformCalculator.exe
+C:\Github\WinformCalculator\WinformCalculator\bin\Debug\WinformCalculator.pdb
+C:\Github\WinformCalculator\WinformCalculator\obj\Debug\WinformCalculator.csprojAssemblyReference.cache
+C:\Github\WinformCalculator\WinformCalculator\obj\Debug\WinformCalculator.Properties.Resources.resources
+C:\Github\WinformCalculator\WinformCalculator\obj\Debug\WinformCalculator.csproj.GenerateResource.cache
+C:\Github\WinformCalculator\WinformCalculator\obj\Debug\WinformCalculator.csproj.CoreCompileInputs.cache
+C:\Github\WinformCalculator\WinformCalculator\obj\Debug\WinformCalculator.exe
+C:\Github\WinformCalculator\WinformCalculator\obj\Debug\WinformCalculator.pdb
+C:\Github\WinformCalculator\WinformCalculator\obj\Debug\WinformCalculator.MainForm.resources

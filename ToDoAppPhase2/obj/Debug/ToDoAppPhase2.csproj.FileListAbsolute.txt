@@ -1,0 +1,68 @@
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\bin\Debug\ToDoAppPhase1.exe.config
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\bin\Debug\ToDoAppPhase1.exe
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\bin\Debug\ToDoAppPhase1.pdb
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\bin\Debug\Control.Draggable.dll
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\bin\Debug\MSharp.Framework.dll
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\bin\Debug\Newtonsoft.Json.dll
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\bin\Debug\MSharp.Framework.pdb
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\bin\Debug\MSharp.Framework.xml
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase2.csprojAssemblyReference.cache
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase2.Form1.resources
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase2.FormAddTask.resources
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase1.Properties.Resources.resources
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase2.csproj.GenerateResource.cache
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase2.csproj.CoreCompileInputs.cache
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase2.csproj.CopyComplete
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase1.exe
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\ToDoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase1.pdb
+C:\Github\TodoAppPhase2\ToDoAppPhase1\bin\Debug\ToDoAppPhase1.exe.config
+C:\Github\TodoAppPhase2\ToDoAppPhase1\bin\Debug\ToDoAppPhase1.exe
+C:\Github\TodoAppPhase2\ToDoAppPhase1\bin\Debug\ToDoAppPhase1.pdb
+C:\Github\TodoAppPhase2\ToDoAppPhase1\bin\Debug\Control.Draggable.dll
+C:\Github\TodoAppPhase2\ToDoAppPhase1\bin\Debug\MSharp.Framework.dll
+C:\Github\TodoAppPhase2\ToDoAppPhase1\bin\Debug\Newtonsoft.Json.dll
+C:\Github\TodoAppPhase2\ToDoAppPhase1\bin\Debug\MSharp.Framework.pdb
+C:\Github\TodoAppPhase2\ToDoAppPhase1\bin\Debug\MSharp.Framework.xml
+C:\Github\TodoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase2.csprojAssemblyReference.cache
+C:\Github\TodoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase2.Form1.resources
+C:\Github\TodoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase2.FormAddTask.resources
+C:\Github\TodoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase1.Properties.Resources.resources
+C:\Github\TodoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase2.csproj.GenerateResource.cache
+C:\Github\TodoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase2.csproj.CoreCompileInputs.cache
+C:\Github\TodoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase2.csproj.CopyComplete
+C:\Github\TodoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase1.exe
+C:\Github\TodoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase1.pdb
+C:\Users\loc.nguyen.VSERVER0\Desktop\TodoAppPhase2\ToDoAppPhase1\bin\Debug\ToDoAppPhase1.exe.config
+C:\Users\loc.nguyen.VSERVER0\Desktop\TodoAppPhase2\ToDoAppPhase1\bin\Debug\ToDoAppPhase1.exe
+C:\Users\loc.nguyen.VSERVER0\Desktop\TodoAppPhase2\ToDoAppPhase1\bin\Debug\ToDoAppPhase1.pdb
+C:\Users\loc.nguyen.VSERVER0\Desktop\TodoAppPhase2\ToDoAppPhase1\bin\Debug\Control.Draggable.dll
+C:\Users\loc.nguyen.VSERVER0\Desktop\TodoAppPhase2\ToDoAppPhase1\bin\Debug\MSharp.Framework.dll
+C:\Users\loc.nguyen.VSERVER0\Desktop\TodoAppPhase2\ToDoAppPhase1\bin\Debug\Newtonsoft.Json.dll
+C:\Users\loc.nguyen.VSERVER0\Desktop\TodoAppPhase2\ToDoAppPhase1\bin\Debug\MSharp.Framework.pdb
+C:\Users\loc.nguyen.VSERVER0\Desktop\TodoAppPhase2\ToDoAppPhase1\bin\Debug\MSharp.Framework.xml
+C:\Users\loc.nguyen.VSERVER0\Desktop\TodoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase2.csprojAssemblyReference.cache
+C:\Users\loc.nguyen.VSERVER0\Desktop\TodoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase2.MainForm.resources
+C:\Users\loc.nguyen.VSERVER0\Desktop\TodoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase1.Properties.Resources.resources
+C:\Users\loc.nguyen.VSERVER0\Desktop\TodoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase2.csproj.GenerateResource.cache
+C:\Users\loc.nguyen.VSERVER0\Desktop\TodoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase2.csproj.CoreCompileInputs.cache
+C:\Users\loc.nguyen.VSERVER0\Desktop\TodoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase2.csproj.CopyComplete
+C:\Users\loc.nguyen.VSERVER0\Desktop\TodoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase1.exe
+C:\Users\loc.nguyen.VSERVER0\Desktop\TodoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase1.pdb
+C:\Users\loc.nguyen.VSERVER0\Desktop\TodoAppPhase2\ToDoAppPhase1\obj\Debug\ToDoAppPhase2.AddTaskForm.resources
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\Internship\ToDoAppPhase2\bin\Debug\ToDoAppPhase1.exe.config
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\Internship\ToDoAppPhase2\bin\Debug\ToDoAppPhase1.exe
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\Internship\ToDoAppPhase2\bin\Debug\ToDoAppPhase1.pdb
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\Internship\ToDoAppPhase2\bin\Debug\Control.Draggable.dll
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\Internship\ToDoAppPhase2\bin\Debug\MSharp.Framework.dll
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\Internship\ToDoAppPhase2\bin\Debug\Newtonsoft.Json.dll
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\Internship\ToDoAppPhase2\bin\Debug\MSharp.Framework.pdb
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\Internship\ToDoAppPhase2\bin\Debug\MSharp.Framework.xml
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\Internship\ToDoAppPhase2\obj\Debug\ToDoAppPhase2.csprojAssemblyReference.cache
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\Internship\ToDoAppPhase2\obj\Debug\ToDoAppPhase2.MainForm.resources
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\Internship\ToDoAppPhase2\obj\Debug\ToDoAppPhase2.AddTaskForm.resources
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\Internship\ToDoAppPhase2\obj\Debug\ToDoAppPhase1.Properties.Resources.resources
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\Internship\ToDoAppPhase2\obj\Debug\ToDoAppPhase2.csproj.GenerateResource.cache
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\Internship\ToDoAppPhase2\obj\Debug\ToDoAppPhase2.csproj.CoreCompileInputs.cache
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\Internship\ToDoAppPhase2\obj\Debug\ToDoAppPhase2.csproj.CopyComplete
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\Internship\ToDoAppPhase2\obj\Debug\ToDoAppPhase1.exe
+C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\Internship\ToDoAppPhase2\obj\Debug\ToDoAppPhase1.pdb
