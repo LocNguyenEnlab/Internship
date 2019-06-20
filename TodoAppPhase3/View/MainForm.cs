@@ -161,18 +161,21 @@ namespace TodoAppPhase3
                 var tb = FindTextbox("tb" + idTask, _listTbTodo);
                 RemoveTextBoxFromListView(tb, lvToDo, _listTbTodo, ref _pointYTodo);
                 _bll.DeleteTask(idTask);
+                _bll.Commit();
             }
             else if (IsInListTextbox("tb" + idTask, _listTbDoing))
             {
                 var tb = FindTextbox("tb" + idTask, _listTbDoing);
                 RemoveTextBoxFromListView(tb, lvDoing, _listTbDoing, ref _pointYDoing);
                 _bll.DeleteTask(idTask);
+                _bll.Commit();
             }
             else if (IsInListTextbox("tb" + idTask, _listTbDone))
             {
                 var tb = FindTextbox("tb" + idTask, _listTbDone);
                 RemoveTextBoxFromListView(tb, lvDone, _listTbDone, ref _pointYDone);
                 _bll.DeleteTask(idTask);
+                _bll.Commit();
             }
         }
 
@@ -221,8 +224,9 @@ namespace TodoAppPhase3
                 {
                     this.Show();
                     _bll.AddTask(t);
+                    _bll.Commit();
                     int id = _bll.GetMaxId();
-                    t = _bll.GetTaskById(id);
+                    t = _bll.GetTask(id);
                     CreateNewTextBox(t);
                 }
                 else
@@ -234,6 +238,7 @@ namespace TodoAppPhase3
             else //update an exists task
             {
                 _bll.UpdateTask(t);
+                _bll.Commit();
                 UpdateTextBox(t);
                 this.Show();
             }
@@ -298,6 +303,7 @@ namespace TodoAppPhase3
             var t = (Task)e.Data.GetData(e.Data.GetFormats()[0]);
             t.TypeList = 1;
             _bll.UpdateTask(t);
+            _bll.Commit();
             CreateNewTextBox(t);
 
             if (IsInListTextbox("tb" + t.Id, _listTbTodo))
@@ -318,6 +324,7 @@ namespace TodoAppPhase3
             var t = (Task)e.Data.GetData(e.Data.GetFormats()[0]);
             t.TypeList = 2;
             _bll.UpdateTask(t);
+            _bll.Commit();
             CreateNewTextBox(t);
 
             if (IsInListTextbox("tb" + t.Id, _listTbTodo))
@@ -338,6 +345,7 @@ namespace TodoAppPhase3
             var t = (Task)e.Data.GetData(e.Data.GetFormats()[0]);
             t.TypeList = 0;
             _bll.UpdateTask(t);
+            _bll.Commit();
             CreateNewTextBox(t);
 
             if (IsInListTextbox("tb" + t.Id, _listTbDone))
@@ -358,7 +366,7 @@ namespace TodoAppPhase3
             var tb = sender as TextBox;
             string nameTb = tb.Name;
             int idTb = Convert.ToInt32(nameTb.Replace("tb", ""));
-            Task t = _bll.GetTaskById(idTb);
+            Task t = _bll.GetTask(idTb);
 
             if (e.Button == MouseButtons.Left && e.Clicks == 1)
             {

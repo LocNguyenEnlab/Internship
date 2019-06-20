@@ -2,9 +2,9 @@
 
 namespace TodoAppPhase3.BLL
 {
-    public class TaskDbContext : DbContext
+    public class DbContext : System.Data.Entity.DbContext
     {
-        public TaskDbContext() : base("name = TodoAppPhase3ConnectionString")
+        public DbContext() : base("name = TodoAppPhase3ConnectionString")
         {
 
         }

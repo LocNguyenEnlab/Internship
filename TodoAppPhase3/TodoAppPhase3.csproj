@@ -54,9 +54,10 @@
   <ItemGroup>
     <Compile Include="BLL\BLLTask.cs" />
     <Compile Include="BLL\Task.cs" />
-    <Compile Include="BLL\TaskDbContext.cs" />
+    <Compile Include="BLL\DbContext.cs" />
     <Compile Include="DAL\ITaskRepository.cs" />
     <Compile Include="DAL\TaskRepository.cs" />
+    <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="MessageBoxManager.cs" />
     <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>

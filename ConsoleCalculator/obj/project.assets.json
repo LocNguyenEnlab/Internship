@@ -694,11 +694,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\loc.nguyen.VSERVER0\\Desktop\\LOC NGUYEN\\Internship\\ConsoleCalculator\\ConsoleCalculator.csproj",
+      "projectUniqueName": "C:\\Github\\Internship\\ConsoleCalculator\\ConsoleCalculator.csproj",
       "projectName": "ConsoleCalculator",
-      "projectPath": "C:\\Users\\loc.nguyen.VSERVER0\\Desktop\\LOC NGUYEN\\Internship\\ConsoleCalculator\\ConsoleCalculator.csproj",
+      "projectPath": "C:\\Github\\Internship\\ConsoleCalculator\\ConsoleCalculator.csproj",
       "packagesPath": "C:\\Users\\loc.nguyen.VSERVER0\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\loc.nguyen.VSERVER0\\Desktop\\LOC NGUYEN\\Internship\\ConsoleCalculator\\obj\\",
+      "outputPath": "C:\\Github\\Internship\\ConsoleCalculator\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

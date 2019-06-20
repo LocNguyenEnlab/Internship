@@ -5,11 +5,11 @@ namespace TodoAppPhase3.BLL
 {
     public class BLLTask
     {
-        private ITaskRepository _taskRepo;
+        private UnitOfWork _uow;
 
         public BLLTask()
         {
-            _taskRepo = new TaskRepository();
+            _uow = new UnitOfWork(new DbContext());
         }
 
         internal bool IsEmpty(Task task)
@@ -22,12 +22,12 @@ namespace TodoAppPhase3.BLL
 
         internal List<Task> GetAllTask()
         {
-            return _taskRepo.GetAllTask();
+            return _uow.TaskRepository.GetAllTask();
         }
 
         internal void DeleteTask(int idTask)
         {
-            _taskRepo.DeleteTask(idTask);
+            _uow.TaskRepository.DeleteTask(idTask);
         }
 
         internal bool IsDuplicateTask(Task t)
@@ -43,22 +43,27 @@ namespace TodoAppPhase3.BLL
 
         internal void AddTask(Task t)
         {
-            _taskRepo.AddTask(t);
+            _uow.TaskRepository.AddTask(t);
         }
 
         internal int GetMaxId()
         {
-            return _taskRepo.GetMaxId();
+            return _uow.TaskRepository.GetMaxId();
         }
 
-        internal Task GetTaskById(int id)
+        internal Task GetTask(int id)
         {
-            return _taskRepo.GetTaskById(id);
+            return _uow.TaskRepository.GetTask(id);
         }
 
         internal void UpdateTask(Task t)
         {
-            _taskRepo.UpdateTask(t);
+            _uow.TaskRepository.UpdateTask(t);
+        }
+
+        internal void Commit()
+        {
+            _uow.Commit();
         }
     }
 }

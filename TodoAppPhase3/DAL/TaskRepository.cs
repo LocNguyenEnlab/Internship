@@ -6,54 +6,43 @@ namespace TodoAppPhase3.DAL
 {
     public class TaskRepository : ITaskRepository
     {
+        private DbContext _context;
+
+        public TaskRepository(DbContext context)
+        {
+            _context = context;
+        }
+
         public void AddTask(Task t)
         {
-            using (var context = new TaskDbContext())
-            {
-                context.Task.Add(t);
-                context.SaveChanges();
-            }
+            _context.Task.Add(t);
         }
+
         public List<Task> GetAllTask()
         {
-            using (var context = new TaskDbContext())
-            {
-                return context.Task.ToList();
-            }
+            return _context.Task.ToList();
         }
-        public Task GetTaskById(int id)
+
+        public Task GetTask(int id)
         {
-            using (var context = new TaskDbContext())
-            {
-                return context.Task.Where(s => s.Id == id).SingleOrDefault();
-            }
+            return _context.Task.Where(s => s.Id == id).SingleOrDefault();
         }
+
         public void UpdateTask(Task t)
         {
-            using (var context = new TaskDbContext())
-            {
-                var task = context.Task.Where(s => s.Id == t.Id).SingleOrDefault();
-                context.Entry(task).CurrentValues.SetValues(t);
-                context.SaveChanges();
-            }
+            var task = _context.Task.Where(s => s.Id == t.Id).SingleOrDefault();
+            _context.Entry(task).CurrentValues.SetValues(t);
         }
 
         public void DeleteTask(int id)
         {
-            using (var context = new TaskDbContext())
-            {
-                var t = context.Task.Where(s => s.Id == id).SingleOrDefault();
-                context.Task.Remove(t);
-                context.SaveChanges();
-            }
+            var t = _context.Task.Where(s => s.Id == id).SingleOrDefault();
+            _context.Task.Remove(t);
         }
 
         public int GetMaxId()
         {
-            using (var context = new TaskDbContext())
-            {
-                return context.Task.OrderByDescending(s => s.Id).FirstOrDefault().Id;
-            }
+            return _context.Task.OrderByDescending(s => s.Id).FirstOrDefault().Id;
         }
     }
 }

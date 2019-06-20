@@ -7,7 +7,7 @@ namespace TodoAppPhase3.DAL
     {
         void AddTask(Task t);
         List<Task> GetAllTask();
-        Task GetTaskById(int id);
+        Task GetTask(int id);
         void UpdateTask(Task t);
         void DeleteTask(int id);
         int GetMaxId();

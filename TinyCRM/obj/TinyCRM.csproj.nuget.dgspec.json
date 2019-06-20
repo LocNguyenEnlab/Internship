@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\loc.nguyen.VSERVER0\\Desktop\\LOC NGUYEN\\Internship\\TinyCRM\\TinyCRM.csproj": {}
+    "C:\\Github\\Internship\\TinyCRM\\TinyCRM.csproj": {}
   },
   "projects": {
-    "C:\\Users\\loc.nguyen.VSERVER0\\Desktop\\LOC NGUYEN\\Internship\\TinyCRM\\TinyCRM.csproj": {
+    "C:\\Github\\Internship\\TinyCRM\\TinyCRM.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\loc.nguyen.VSERVER0\\Desktop\\LOC NGUYEN\\Internship\\TinyCRM\\TinyCRM.csproj",
+        "projectUniqueName": "C:\\Github\\Internship\\TinyCRM\\TinyCRM.csproj",
         "projectName": "TinyCRM",
-        "projectPath": "C:\\Users\\loc.nguyen.VSERVER0\\Desktop\\LOC NGUYEN\\Internship\\TinyCRM\\TinyCRM.csproj",
+        "projectPath": "C:\\Github\\Internship\\TinyCRM\\TinyCRM.csproj",
         "packagesPath": "C:\\Users\\loc.nguyen.VSERVER0\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\loc.nguyen.VSERVER0\\Desktop\\LOC NGUYEN\\Internship\\TinyCRM\\obj\\",
+        "outputPath": "C:\\Github\\Internship\\TinyCRM\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
