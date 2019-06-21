@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using TodoAppPhase3.BLL;
 
@@ -15,7 +16,7 @@ namespace TodoAppPhase3
         private List<TextBox> _listTbTodo;
         private List<TextBox> _listTbDoing;
         private List<TextBox> _listTbDone;
-        private BLLTask _bll;
+        private BLLTask _bllTask;
 
         public MainForm()
         {
@@ -23,163 +24,129 @@ namespace TodoAppPhase3
             _pointYTodo = 0;
             _pointYDoing = 0;
             _pointYDone = 0;
-            _listTask = new List<Task>();
             _listTbTodo = new List<TextBox>();
             _listTbDoing = new List<TextBox>();
             _listTbDone = new List<TextBox>();
-            _bll = new BLLTask();
+            _bllTask = new BLLTask();
             ShowData();
         }
 
         private void ShowData()
         {
-            _listTask = _bll.GetAllTask();
-            foreach (var item in _listTask)
+            _listTask = _bllTask.GetAllTask();
+            foreach (var task in _listTask)
             {
-                CreateNewTextBox(item);
+                CreateNewTextBox(task);
             }
         }
 
-        private void CreateNewTextBox(Task t)
+        private void CreateNewTextBox(Task task)
         {
-            var tb = new TextBox();
-
-            if (t.TypeList == 0)
+            if (task.TypeList == (int)TypeList.Todo)
             {
-                tb.Location = new Point(0, _pointYTodo);
-                tb.Text = t.Title;
-                tb.Name = "tb" + (t.Id);
-                tb.ReadOnly = true;
-                tb.Size = new Size(325, 20);
-                _listTbTodo.Add(tb);
-                tb.MouseDown += TextBox_MouseDown;
-                tb.Show();
-                lvToDo.Controls.Add(tb);
-                _pointYTodo += 25;
+                CreateAndImportTextbox(lvToDo, _listTbTodo, task, ref _pointYTodo);
             }
-            else if (t.TypeList == 1)
+            else if (task.TypeList == (int)TypeList.Doing)
             {
-                tb.Location = new Point(0, _pointYDoing);
-                tb.Text = t.Title;
-                tb.Name = "tb" + (t.Id);
-                tb.ReadOnly = true;
-                tb.Size = new Size(325, 20);
-                _listTbDoing.Add(tb);
-                tb.MouseDown += TextBox_MouseDown;
-                tb.Show();
-                lvDoing.Controls.Add(tb);
-                _pointYDoing += 25;
+                CreateAndImportTextbox(lvDoing, _listTbDoing, task, ref _pointYDoing);
             }
-            else if (t.TypeList == 2)
+            else if (task.TypeList == (int)TypeList.Done)
             {
-                tb.Location = new Point(0, _pointYDone);
-                tb.Text = t.Title;
-                tb.Name = "tb" + (t.Id);
-                tb.ReadOnly = true;
-                tb.Size = new Size(325, 20);
-                _listTbDone.Add(tb);
-                tb.MouseDown += TextBox_MouseDown;
-                tb.Show();
-                lvDone.Controls.Add(tb);
-                _pointYDone += 25;
+                CreateAndImportTextbox(lvDone, _listTbDone, task, ref _pointYDone);
             }
         }
 
-        private bool IsInListTextbox(string nameTb, List<TextBox> list)
+        private void CreateAndImportTextbox(ListView listView, List<TextBox> listTextBox, Task task, ref int pointY)
         {
-            foreach (var item in list)
-            {
-                if (item.Name == nameTb)
-                {
-                    return true;
-                }
-            }
-            return false;
+            var textBox = new TextBox();
+            textBox.Location = new Point(0, pointY);
+            textBox.Text = task.Title;
+            textBox.Name = "tb" + (task.Id);
+            textBox.ReadOnly = true;
+            textBox.Size = new Size(325, 20);
+            listTextBox.Add(textBox);
+            textBox.MouseDown += TextBox_MouseDown;
+            textBox.Show();
+            listView.Controls.Add(textBox);
+            pointY += 25;
+        }
+
+        private bool IsTextBoxInList(string textBoxName, List<TextBox> list)
+        {
+            if (list.FirstOrDefault(s => s.Name == textBoxName) != null)
+                return true;
+            else
+                return false;
         }
 
         private TextBox FindTextbox(string name, List<TextBox> list)
         {
-            foreach (var item in list)
-            {
-                if (item.Name == name)
-                {
-                    return item;
-                }
-            }
-            return null;
+            return list.FirstOrDefault(_ => _.Name == name);
+        }        
+
+        private int FindTextBoxIndexInList(List<TextBox> list, TextBox textBox)
+        {
+            return list.FindIndex(_ => _.Name == textBox.Name);
         }
 
-        private int FindIndexTbInList(List<TextBox> list, TextBox tb)
+        private void RemoveTextBoxFromListView(TextBox textBox, ListView listView, List<TextBox> list, ref int pointY)
         {
-            for (int i = 0; i < list.Count; i++)
-            {
-                if (list[i] == tb)
-                {
-                    return i;
-                }
-            }
-            return -1;
-        }
+            int textBoxIndex = FindTextBoxIndexInList(list, textBox);
 
-        private void RemoveTextBoxFromListView(TextBox tb, ListView lv, List<TextBox> list, ref int pointY)
-        {
-            int indexTb = FindIndexTbInList(list, tb);
-
-            if (indexTb == list.Count)
+            if (textBoxIndex == list.Count)
             {
                 pointY -= 25;
             }
             else
             {
-                for (int i = indexTb + 1; i < list.Count; i++)
+                for (int i = textBoxIndex + 1; i < list.Count; i++)
                 {
                     list[i].Location = new Point(0, list[i].Location.Y - 25);
                 }
                 pointY -= 25;
             }
-
-            lv.Controls.Remove(tb);
-            list.Remove(tb);
+            
+            listView.Controls.Remove(textBox);
+            list.Remove(textBox);
         }
 
-        private void EditTask(Task t)
+        private void EditTask(Task task)
         {
-            var addTaskForm = new AddTaskForm(t)
+            var addTaskForm = new AddTaskForm(task)
             {
                 Text = "Edit task",
                 passData = new AddTaskForm.PassData(PassData),
                 showMainForm = new AddTaskForm.ShowMainForm(Show)
             };
-            addTaskForm.Show();
-            this.Hide();
+            addTaskForm.ShowDialog();
         }
 
-        private void DeleteTask(int idTask)
+        private void DeleteTask(int taskId)
         {
-            if (IsInListTextbox("tb" + idTask, _listTbTodo))
+            if (IsTextBoxInList("tb" + taskId, _listTbTodo))
             {
-                var tb = FindTextbox("tb" + idTask, _listTbTodo);
-                RemoveTextBoxFromListView(tb, lvToDo, _listTbTodo, ref _pointYTodo);
-                _bll.DeleteTask(idTask);
-                _bll.Commit();
+                var textBox = FindTextbox("tb" + taskId, _listTbTodo);
+                RemoveTextBoxFromListView(textBox, lvToDo, _listTbTodo, ref _pointYTodo);
+                _bllTask.DeleteTask(taskId);
+                _bllTask.Commit();
             }
-            else if (IsInListTextbox("tb" + idTask, _listTbDoing))
+            else if (IsTextBoxInList("tb" + taskId, _listTbDoing))
             {
-                var tb = FindTextbox("tb" + idTask, _listTbDoing);
-                RemoveTextBoxFromListView(tb, lvDoing, _listTbDoing, ref _pointYDoing);
-                _bll.DeleteTask(idTask);
-                _bll.Commit();
+                var textBox = FindTextbox("tb" + taskId, _listTbDoing);
+                RemoveTextBoxFromListView(textBox, lvDoing, _listTbDoing, ref _pointYDoing);
+                _bllTask.DeleteTask(taskId);
+                _bllTask.Commit();
             }
-            else if (IsInListTextbox("tb" + idTask, _listTbDone))
+            else if (IsTextBoxInList("tb" + taskId, _listTbDone))
             {
-                var tb = FindTextbox("tb" + idTask, _listTbDone);
-                RemoveTextBoxFromListView(tb, lvDone, _listTbDone, ref _pointYDone);
-                _bll.DeleteTask(idTask);
-                _bll.Commit();
+                var textBox = FindTextbox("tb" + taskId, _listTbDone);
+                RemoveTextBoxFromListView(textBox, lvDone, _listTbDone, ref _pointYDone);
+                _bllTask.DeleteTask(taskId);
+                _bllTask.Commit();
             }
         }
 
-        private void ShowTaskDetail(Task t)
+        private void ShowTaskDetail(Task task)
         {
             MessageBoxManager.Yes = "Edit";
             MessageBoxManager.No = "Delete";
@@ -187,20 +154,20 @@ namespace TodoAppPhase3
             MessageBoxManager.Register();
 
             DialogResult dialogResult = MessageBox.Show(string.Format("Title: {0}\nDescription: {1}\nTime create: {2}",
-                t.Title, t.Description, Convert.ToDateTime(t.TimeCreate)),
+                task.Title, task.Description, Convert.ToDateTime(task.TimeCreate)),
                 "Task Detail", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
             MessageBoxManager.Unregister();
 
             if (dialogResult == DialogResult.Yes)
             {
-                EditTask(t);
+                EditTask(task);
             }
             else if (dialogResult == DialogResult.No)
             {
-                DialogResult resultConfirm = MessageBox.Show("Do you want to delete this task?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (resultConfirm == DialogResult.Yes)
+                DialogResult confirmResult = MessageBox.Show("Do you want to delete this task?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (confirmResult == DialogResult.Yes)
                 {
-                    DeleteTask(t.Id);
+                    DeleteTask(task.Id);
                 }
             }
         }
@@ -216,18 +183,18 @@ namespace TodoAppPhase3
             this.Hide();
         }
 
-        public void PassData(Task t)
+        public void PassData(Task task)
         {
-            if (t.Id == -1) //add new task
+            if (task.Id == -1) //add new task
             {
-                if (!_bll.IsDuplicateTask(t))
+                if (!_bllTask.IsDuplicateTask(task))
                 {
                     this.Show();
-                    _bll.AddTask(t);
-                    _bll.Commit();
-                    int id = _bll.GetMaxId();
-                    t = _bll.GetTask(id);
-                    CreateNewTextBox(t);
+                    _bllTask.AddTask(task);
+                    _bllTask.Commit();
+                    int id = _bllTask.GetMaxId();
+                    task = _bllTask.GetTask(id);
+                    CreateNewTextBox(task);
                 }
                 else
                 {
@@ -237,42 +204,37 @@ namespace TodoAppPhase3
             }
             else //update an exists task
             {
-                _bll.UpdateTask(t);
-                _bll.Commit();
-                UpdateTextBox(t);
+                _bllTask.UpdateTask(task);
+                _bllTask.Commit();
+                UpdateTextBox(task);
                 this.Show();
             }
         }
 
-        public void ShowForm1()
+        public void UpdateTextBox(Task task)
         {
-            this.Show();
-        }
-
-        public void UpdateTextBox(Task t)
-        {
-            if (FindTextbox("tb" + t.Id, _listTbTodo) != null)
+            if (FindTextbox("tb" + task.Id, _listTbTodo) != null)
             {
-                var tb = FindTextbox("tb" + t.Id, _listTbTodo);
-                _listTbTodo[FindIndexTbInList(_listTbTodo, tb)].Text = t.Title;
+                var textBox = FindTextbox("tb" + task.Id, _listTbTodo);
+                _listTbTodo[FindTextBoxIndexInList(_listTbTodo, textBox)].Text = task.Title;
             }
-            else if (FindTextbox("tb" + t.Id, _listTbDoing) != null)
+            else if (FindTextbox("tb" + task.Id, _listTbDoing) != null)
             {
-                var tb = FindTextbox("tb" + t.Id, _listTbDoing);
-                _listTbDoing[FindIndexTbInList(_listTbDoing, tb)].Text = t.Title;
+                var textBox = FindTextbox("tb" + task.Id, _listTbDoing);
+                _listTbDoing[FindTextBoxIndexInList(_listTbDoing, textBox)].Text = task.Title;
             }
-            else if (FindTextbox("tb" + t.Id, _listTbDone) != null)
+            else if (FindTextbox("tb" + task.Id, _listTbDone) != null)
             {
-                var tb = FindTextbox("tb" + t.Id, _listTbDone);
-                _listTbDone[FindIndexTbInList(_listTbDone, tb)].Text = t.Title;
+                var textBox = FindTextbox("tb" + task.Id, _listTbDone);
+                _listTbDone[FindTextBoxIndexInList(_listTbDone, textBox)].Text = task.Title;
             }
         }
 
         private void LvDoing_DragEnter(object sender, DragEventArgs e)
         {
-            int idTb = ((Task)e.Data.GetData(e.Data.GetFormats()[0])).Id;
+            int textBoxId = ((Task)e.Data.GetData(e.Data.GetFormats()[0])).Id;
 
-            if (!IsInListTextbox("tb" + idTb, _listTbDoing))
+            if (!IsTextBoxInList("tb" + textBoxId, _listTbDoing))
             {
                 e.Effect = DragDropEffects.Move;
             }
@@ -280,9 +242,9 @@ namespace TodoAppPhase3
 
         private void LvDone_DragEnter(object sender, DragEventArgs e)
         {
-            int idTb = ((Task)e.Data.GetData(e.Data.GetFormats()[0])).Id;
+            int textBoxId = ((Task)e.Data.GetData(e.Data.GetFormats()[0])).Id;
 
-            if (!IsInListTextbox("tb" + idTb, _listTbDone))
+            if (!IsTextBoxInList("tb" + textBoxId, _listTbDone))
             {
                 e.Effect = DragDropEffects.Move;
             }
@@ -290,9 +252,9 @@ namespace TodoAppPhase3
 
         private void LvTodo_DragEnter(object sender, DragEventArgs e)
         {
-            int idTb = ((Task)e.Data.GetData(e.Data.GetFormats()[0])).Id;
+            int textBoxId = ((Task)e.Data.GetData(e.Data.GetFormats()[0])).Id;
 
-            if (!IsInListTextbox("tb" + idTb, _listTbTodo))
+            if (!IsTextBoxInList("tb" + textBoxId, _listTbTodo))
             {
                 e.Effect = DragDropEffects.Move;
             }
@@ -300,81 +262,81 @@ namespace TodoAppPhase3
 
         private void LvDoing_DragDrop(object sender, DragEventArgs e)
         {
-            var t = (Task)e.Data.GetData(e.Data.GetFormats()[0]);
-            t.TypeList = 1;
-            _bll.UpdateTask(t);
-            _bll.Commit();
-            CreateNewTextBox(t);
+            var task = (Task)e.Data.GetData(e.Data.GetFormats()[0]);
+            task.TypeList = (int)TypeList.Doing;
+            _bllTask.UpdateTask(task);
+            _bllTask.Commit();
+            CreateNewTextBox(task);
 
-            if (IsInListTextbox("tb" + t.Id, _listTbTodo))
+            if (IsTextBoxInList("tb" + task.Id, _listTbTodo))
             {
-                var tb = FindTextbox("tb" + t.Id, _listTbTodo);
-                RemoveTextBoxFromListView(tb, lvToDo, _listTbTodo, ref _pointYTodo);
+                var textBox = FindTextbox("tb" + task.Id, _listTbTodo);
+                RemoveTextBoxFromListView(textBox, lvToDo, _listTbTodo, ref _pointYTodo);
             }
 
-            if (IsInListTextbox("tb" + t.Id, _listTbDone))
+            if (IsTextBoxInList("tb" + task.Id, _listTbDone))
             {
-                var tb = FindTextbox("tb" + t.Id, _listTbDone);
-                RemoveTextBoxFromListView(tb, lvDone, _listTbDone, ref _pointYDone);
+                var textBox = FindTextbox("tb" + task.Id, _listTbDone);
+                RemoveTextBoxFromListView(textBox, lvDone, _listTbDone, ref _pointYDone);
             }
         }
 
         private void LvDone_DragDrop(object sender, DragEventArgs e)
         {
-            var t = (Task)e.Data.GetData(e.Data.GetFormats()[0]);
-            t.TypeList = 2;
-            _bll.UpdateTask(t);
-            _bll.Commit();
-            CreateNewTextBox(t);
+            var task = (Task)e.Data.GetData(e.Data.GetFormats()[0]);
+            task.TypeList = (int)TypeList.Done ;
+            _bllTask.UpdateTask(task);
+            _bllTask.Commit();
+            CreateNewTextBox(task);
 
-            if (IsInListTextbox("tb" + t.Id, _listTbTodo))
+            if (IsTextBoxInList("tb" + task.Id, _listTbTodo))
             {
-                var tb = FindTextbox("tb" + t.Id, _listTbTodo);
-                RemoveTextBoxFromListView(tb, lvToDo, _listTbTodo, ref _pointYTodo);
+                var textBox = FindTextbox("tb" + task.Id, _listTbTodo);
+                RemoveTextBoxFromListView(textBox, lvToDo, _listTbTodo, ref _pointYTodo);
             }
 
-            if (IsInListTextbox("tb" + t.Id, _listTbDoing))
+            if (IsTextBoxInList("tb" + task.Id, _listTbDoing))
             {
-                var tb = FindTextbox("tb" + t.Id, _listTbDoing);
-                RemoveTextBoxFromListView(tb, lvDoing, _listTbDoing, ref _pointYDoing);
+                var textBox = FindTextbox("tb" + task.Id, _listTbDoing);
+                RemoveTextBoxFromListView(textBox, lvDoing, _listTbDoing, ref _pointYDoing);
             }
         }
 
         private void LvTodo_DragDrop(object sender, DragEventArgs e)
         {
-            var t = (Task)e.Data.GetData(e.Data.GetFormats()[0]);
-            t.TypeList = 0;
-            _bll.UpdateTask(t);
-            _bll.Commit();
-            CreateNewTextBox(t);
+            var task = (Task)e.Data.GetData(e.Data.GetFormats()[0]);
+            task.TypeList = (int)TypeList.Todo;
+            _bllTask.UpdateTask(task);
+            _bllTask.Commit();
+            CreateNewTextBox(task);
 
-            if (IsInListTextbox("tb" + t.Id, _listTbDone))
+            if (IsTextBoxInList("tb" + task.Id, _listTbDone))
             {
-                var tb = FindTextbox("tb" + t.Id, _listTbDone);
-                RemoveTextBoxFromListView(tb, lvDone, _listTbDone, ref _pointYDone);
+                var textBox = FindTextbox("tb" + task.Id, _listTbDone);
+                RemoveTextBoxFromListView(textBox, lvDone, _listTbDone, ref _pointYDone);
             }
 
-            if (IsInListTextbox("tb" + t.Id, _listTbDoing))
+            if (IsTextBoxInList("tb" + task.Id, _listTbDoing))
             {
-                var tb = FindTextbox("tb" + t.Id, _listTbDoing);
-                RemoveTextBoxFromListView(tb, lvDoing, _listTbDoing, ref _pointYDoing);
+                var textBox = FindTextbox("tb" + task.Id, _listTbDoing);
+                RemoveTextBoxFromListView(textBox, lvDoing, _listTbDoing, ref _pointYDoing);
             }
         }
 
         private void TextBox_MouseDown(object sender, MouseEventArgs e)
         {
-            var tb = sender as TextBox;
-            string nameTb = tb.Name;
-            int idTb = Convert.ToInt32(nameTb.Replace("tb", ""));
-            Task t = _bll.GetTask(idTb);
+            var textBox = sender as TextBox;
+            string textBoxName = textBox.Name;
+            int textBoxId = Convert.ToInt32(textBoxName.Replace("tb", ""));
+            var task = _bllTask.GetTask(textBoxId);
 
             if (e.Button == MouseButtons.Left && e.Clicks == 1)
             {
-                tb.DoDragDrop(t, DragDropEffects.Move);
+                textBox.DoDragDrop(task, DragDropEffects.Move);
             }
             else
             {
-                ShowTaskDetail(t);
+                ShowTaskDetail(task);
             }
         }
 

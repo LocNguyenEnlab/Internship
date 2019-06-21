@@ -6,7 +6,7 @@ namespace ToDoAppPhase2
     public partial class AddTaskForm : Form
     {
         private Task _taskEdit;
-        public delegate void PassData(Task t);
+        public delegate void PassData(Task task);
         public delegate void ShowMainForm();
         public PassData passData;
         public ShowMainForm showMainForm;

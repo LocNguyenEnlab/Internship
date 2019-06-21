@@ -59,6 +59,8 @@
   <ItemGroup>
     <Compile Include="BLL\BLLFileSystemTask.cs" />
     <Compile Include="BLL\BLLSqlTask.cs" />
+    <Compile Include="BLL\DataOptions.cs" />
+    <Compile Include="BLL\TypeList.cs" />
     <Compile Include="DAL\FileSystemTaskRepository.cs" />
     <Compile Include="DAL\IFileSystemTaskRepository.cs" />
     <Compile Include="DAL\ISqlTaskRepository.cs" />
@@ -80,7 +82,7 @@
     <Compile Include="View\AddTaskForm.Designer.cs">
       <DependentUpon>AddTaskForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MessageBoxManager.cs" />
+    <Compile Include="BLL\MessageBoxManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BLL\Task.cs" />

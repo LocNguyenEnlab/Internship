@@ -6,9 +6,9 @@ namespace TodoAppPhase3
 {
     public partial class AddTaskForm : Form
     {
-        private BLLTask _bll;
+        private BLLTask _bllTask;
         private Task taskEdit;
-        public delegate void PassData(Task t);
+        public delegate void PassData(Task task);
         public delegate void ShowMainForm();
         public PassData passData;
         public ShowMainForm showMainForm;
@@ -17,17 +17,17 @@ namespace TodoAppPhase3
         {
             InitializeComponent();
             btnUpdate.Visible = false;
-            _bll = new BLLTask();
+            _bllTask = new BLLTask();
         }
 
-        public AddTaskForm(Task t)
+        public AddTaskForm(Task task)
         {
             InitializeComponent();
-            tbTitle.Text = t.Title;
-            tbDescription.Text = t.Description;
+            tbTitle.Text = task.Title;
+            tbDescription.Text = task.Description;
             btnOk.Visible = false;
-            taskEdit = t;
-            _bll = new BLLTask();
+            taskEdit = task;
+            _bllTask = new BLLTask();
         }
 
         private void BtnOk_Click(object sender, EventArgs e)
@@ -38,10 +38,10 @@ namespace TodoAppPhase3
                 Title = tbTitle.Text,
                 Description = tbDescription.Text,
                 TimeCreate = DateTime.Now,
-                TypeList = 0
+                TypeList = (int)TypeList.Todo
             };
 
-            if (!_bll.IsEmpty(task))
+            if (!_bllTask.IsEmpty(task))
             {
                 passData(task);
                 this.Dispose();
@@ -62,7 +62,7 @@ namespace TodoAppPhase3
             taskEdit.Title = tbTitle.Text;
             taskEdit.Description = tbDescription.Text;
 
-            if (!_bll.IsEmpty(taskEdit))
+            if (!_bllTask.IsEmpty(taskEdit))
             {
                 passData(taskEdit);
                 this.Dispose();

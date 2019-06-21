@@ -9,9 +9,9 @@ namespace ToDoAppPhase1
         public string Description { get; set; }
         public DateTime TimeCreate { get; set; }
 
-        public bool Compare(Task t)
+        public bool Compare(Task task)
         {
-            if (this.Title != t.Title)
+            if (this.Title != task.Title)
             {
                 return false;
             }

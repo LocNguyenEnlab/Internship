@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using ToDoAppPhase1.BLL;
 using System.IO;
+using System.Linq;
 
 namespace ToDoAppPhase2
 {
@@ -16,7 +17,7 @@ namespace ToDoAppPhase2
         private List<TextBox> _listTbTodo;
         private List<TextBox> _listTbDoing;
         private List<TextBox> _listTbDone;
-        private int _optionData; //0: sql server, 1: file sytem
+        private int _dataOptions; //0: sql server, 1: file sytem
         private BLLSqlTask _bllSql;
         private BLLFileSystemTask _bllFileSystem;
 
@@ -26,7 +27,6 @@ namespace ToDoAppPhase2
             _pointYTodo = 0;
             _pointYDoing = 0;
             _pointYDone = 0;
-            _listTask = new List<Task>();
             _listTbTodo = new List<TextBox>();
             _listTbDoing = new List<TextBox>();
             _listTbDone = new List<TextBox>();
@@ -36,7 +36,7 @@ namespace ToDoAppPhase2
 
         private void ShowData()
         {
-            if (_optionData == 0)
+            if (_dataOptions == (int)DataOptions.SqlServer)
             {
                 _listTask = _bllSql.GetAllTask();
             }
@@ -95,10 +95,9 @@ namespace ToDoAppPhase2
             }
         }
 
-        private bool IsInListTextbox(string nameTb, List<TextBox> list)
+        private bool IsTextBoxInList(string nameTb, List<TextBox> list)
         {
-            var textbox = FindTextbox(nameTb, list);
-            if (textbox != null)
+            if (FindTextbox(nameTb, list) != null)
             {
                 return true;
             }
@@ -108,54 +107,40 @@ namespace ToDoAppPhase2
             }
         }
 
-        private TextBox FindTextbox(string name, List<TextBox> list)
+        private TextBox FindTextbox(string textBoxName, List<TextBox> textBoxList)
         {
-            foreach (var item in list)
-            {
-                if (item.Name == name)
-                {
-                    return item;
-                }
-            }
-            return null;
+            return textBoxList.FirstOrDefault(s => s.Name == textBoxName);
         }
 
-        private int FindIndexTbInList(List<TextBox> list, TextBox tb)
+        private int FindTextBoxIndex(List<TextBox> textBoxList, TextBox textBox)
         {
-            for(int i = 0; i < list.Count; i++)
-            {
-                if (list[i] == tb)
-                {
-                    return i;
-                }
-            }
-            return -1;
+            return textBoxList.FindIndex(s=>s.Name == textBox.Name);
         }       
 
-        private void RemoveTextBoxFromListView(TextBox tb, ListView lv, List<TextBox> list, ref int pointY)
+        private void RemoveTextBoxFromListView(TextBox textBox, ListView listView, List<TextBox> textBoxList, ref int pointY)
         {
-            int indexTb = FindIndexTbInList(list, tb);
+            int textBoxIndex = FindTextBoxIndex(textBoxList, textBox);
 
-            if (indexTb == list.Count - 1)
+            if (textBoxIndex == textBoxList.Count - 1)
             {
                 pointY -= 25;
             }
             else
             {
-                for (int i = indexTb + 1; i < list.Count; i++)
+                for (int i = textBoxIndex + 1; i < textBoxList.Count; i++)
                 {
-                    list[i].Location = new Point(0, list[i].Location.Y - 25);                    
+                    textBoxList[i].Location = new Point(0, textBoxList[i].Location.Y - 25);                    
                 }
                 pointY -= 25;
             }
 
-            lv.Controls.Remove(tb);
-            list.Remove(tb);            
+            listView.Controls.Remove(textBox);
+            textBoxList.Remove(textBox);            
         }
 
-        private void EditTask(Task t)
+        private void EditTask(Task task)
         {
-            var addTaskForm = new AddTaskForm(t)
+            var addTaskForm = new AddTaskForm(task)
             {
                 Text = "Edit task",
                 passData = new AddTaskForm.PassData(PassData),
@@ -165,49 +150,49 @@ namespace ToDoAppPhase2
             this.Hide();
         }
         
-        private void DeleteTask(int idTask)
+        private void DeleteTask(int taskId)
         {
-            if (IsInListTextbox("tb" + idTask, _listTbTodo))
+            if (IsTextBoxInList("tb" + taskId, _listTbTodo))
             {
-                var tb = FindTextbox("tb" + idTask, _listTbTodo);
-                RemoveTextBoxFromListView(tb, lvToDo, _listTbTodo, ref _pointYTodo);
-                if (_optionData == 0)
+                var textBox = FindTextbox("tb" + taskId, _listTbTodo);
+                RemoveTextBoxFromListView(textBox, lvToDo, _listTbTodo, ref _pointYTodo);
+                if (_dataOptions == (int)DataOptions.SqlServer)
                 {
-                    _bllSql.DeleteTask(idTask);
+                    _bllSql.DeleteTask(taskId);
                 }
                 else
                 {
-                    _bllFileSystem.DeleteTask(idTask);
+                    _bllFileSystem.DeleteTask(taskId);
                 }
             }
-            else if (IsInListTextbox("tb" + idTask, _listTbDoing))
+            else if (IsTextBoxInList("tb" + taskId, _listTbDoing))
             {
-                var tb = FindTextbox("tb" + idTask, _listTbDoing);
-                RemoveTextBoxFromListView(tb, lvDoing, _listTbDoing, ref _pointYDoing);
-                if (_optionData == 0)
+                var textBox = FindTextbox("tb" + taskId, _listTbDoing);
+                RemoveTextBoxFromListView(textBox, lvDoing, _listTbDoing, ref _pointYDoing);
+                if (_dataOptions == (int)DataOptions.SqlServer)
                 {
-                    _bllSql.DeleteTask(idTask);
+                    _bllSql.DeleteTask(taskId);
                 }
                 else
                 {
-                    _bllFileSystem.DeleteTask(idTask);
+                    _bllFileSystem.DeleteTask(taskId);
                 }
             } 
-            else if (IsInListTextbox("tb" + idTask, _listTbDone)) {
-                var tb = FindTextbox("tb" + idTask, _listTbDone);
-                RemoveTextBoxFromListView(tb, lvDone, _listTbDone, ref _pointYDone);
-                if (_optionData == 0)
+            else if (IsTextBoxInList("tb" + taskId, _listTbDone)) {
+                var textBox = FindTextbox("tb" + taskId, _listTbDone);
+                RemoveTextBoxFromListView(textBox, lvDone, _listTbDone, ref _pointYDone);
+                if (_dataOptions == (int)DataOptions.SqlServer)
                 {
-                    _bllSql.DeleteTask(idTask);
+                    _bllSql.DeleteTask(taskId);
                 }
                 else
                 {
-                    _bllFileSystem.DeleteTask(idTask);
+                    _bllFileSystem.DeleteTask(taskId);
                 }
             }
         }
 
-        private void ShowTaskDetail(Task t)
+        private void ShowTaskDetail(Task task)
         {
             MessageBoxManager.Yes = "Edit";
             MessageBoxManager.No = "Delete";
@@ -215,21 +200,21 @@ namespace ToDoAppPhase2
             MessageBoxManager.Register();
 
             DialogResult dialogResult = MessageBox.Show(string.Format("Title: {0}\nDescription: {1}\nTime create: {2}", 
-                t.Title, t.Description, Convert.ToDateTime(t.TimeCreate)),
+                task.Title, task.Description, Convert.ToDateTime(task.TimeCreate)),
                 "Task Detail", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
             MessageBoxManager.Unregister();
 
             if (dialogResult == DialogResult.Yes)
             {
-                EditTask(t);
+                EditTask(task);
             }
             else if (dialogResult == DialogResult.No)
             {                
-                DialogResult resultConfirm = MessageBox.Show("Do you want to delete this task?", "Warning", 
+                DialogResult confirmResult = MessageBox.Show("Do you want to delete this task?", "Warning", 
                     MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (resultConfirm == DialogResult.Yes)
+                if (confirmResult == DialogResult.Yes)
                 {
-                    DeleteTask(t.Id);
+                    DeleteTask(task.Id);
                 }
             }
         }
@@ -245,19 +230,19 @@ namespace ToDoAppPhase2
             this.Hide();
         }
 
-        public void PassData(Task t)
+        public void PassData(Task task)
         {
-            if (t.Id == -1) //add new task
+            if (task.Id == -1) //add new task
             {
-                if (_optionData == 0)
+                if (_dataOptions == (int)DataOptions.SqlServer)
                 {
-                    if (!_bllSql.IsDuplicateTask(t))
+                    if (!_bllSql.IsDuplicateTask(task))
                     {
                         this.Show();
-                        _bllSql.AddTask(t);
+                        _bllSql.AddTask(task);
                         int id = _bllSql.GetMaxId();
-                        t = _bllSql.GetTask(id);
-                        CreateNewTextBox(t);
+                        task = _bllSql.GetTask(id);
+                        CreateNewTextBox(task);
                     }
                     else
                     {
@@ -267,12 +252,12 @@ namespace ToDoAppPhase2
                 }
                 else
                 {
-                    if (!_bllFileSystem.IsDuplicateTask(t))
+                    if (!_bllFileSystem.IsDuplicateTask(task))
                     {
                         this.Show();
-                        t.Id = _bllFileSystem.GetMaxId();
-                        _bllFileSystem.AddTask(t);
-                        CreateNewTextBox(t);
+                        task.Id = _bllFileSystem.GetMaxId();
+                        _bllFileSystem.AddTask(task);
+                        CreateNewTextBox(task);
                     }
                     else
                     {
@@ -283,48 +268,43 @@ namespace ToDoAppPhase2
             } 
             else //update an exists task
             {
-                if (_optionData == 0)
+                if (_dataOptions == (int)DataOptions.SqlServer)
                 {
-                    _bllSql.UpdateTask(t);
+                    _bllSql.UpdateTask(task);
                 } 
                 else
                 {
-                    _bllFileSystem.UpdateTask(t);
+                    _bllFileSystem.UpdateTask(task);
                 }
-                UpdateTextBox(t);
+                UpdateTextBox(task);
                 this.Show();
             }
         }
 
-        public void ShowForm1()
+        public void UpdateTextBox(Task task)
         {
-            this.Show();
-        }
-
-        public void UpdateTextBox(Task t)
-        {
-            if (FindTextbox("tb" + t.Id, _listTbTodo) != null)
+            if (FindTextbox("tb" + task.Id, _listTbTodo) != null)
             {
-                var tb = FindTextbox("tb" + t.Id, _listTbTodo);
-                _listTbTodo[FindIndexTbInList(_listTbTodo, tb)].Text = t.Title;
+                var textBox = FindTextbox("tb" + task.Id, _listTbTodo);
+                _listTbTodo[FindTextBoxIndex(_listTbTodo, textBox)].Text = task.Title;
             }
-            else if (FindTextbox("tb" + t.Id, _listTbDoing) != null)
+            else if (FindTextbox("tb" + task.Id, _listTbDoing) != null)
             {
-                var tb = FindTextbox("tb" + t.Id, _listTbDoing);
-                _listTbDoing[FindIndexTbInList(_listTbDoing, tb)].Text = t.Title;
+                var textBox = FindTextbox("tb" + task.Id, _listTbDoing);
+                _listTbDoing[FindTextBoxIndex(_listTbDoing, textBox)].Text = task.Title;
             }
-            else if (FindTextbox("tb" + t.Id, _listTbDone) != null)
+            else if (FindTextbox("tb" + task.Id, _listTbDone) != null)
             {
-                var tb = FindTextbox("tb" + t.Id, _listTbDone);
-                _listTbDone[FindIndexTbInList(_listTbDone, tb)].Text = t.Title;
+                var textBox = FindTextbox("tb" + task.Id, _listTbDone);
+                _listTbDone[FindTextBoxIndex(_listTbDone, textBox)].Text = task.Title;
             }
         }
 
         private void LvDoing_DragEnter(object sender, DragEventArgs e)
         {
-            int idTb = ((Task)e.Data.GetData(e.Data.GetFormats()[0])).Id;
+            int textBoxId = ((Task)e.Data.GetData(e.Data.GetFormats()[0])).Id;
 
-            if (!IsInListTextbox("tb" + idTb, _listTbDoing))
+            if (!IsTextBoxInList("tb" + textBoxId, _listTbDoing))
             {
                 e.Effect = DragDropEffects.Move;
             }
@@ -332,9 +312,9 @@ namespace ToDoAppPhase2
 
         private void LvDone_DragEnter(object sender, DragEventArgs e)
         {
-            int idTb = ((Task)e.Data.GetData(e.Data.GetFormats()[0])).Id;
+            int textBoxId = ((Task)e.Data.GetData(e.Data.GetFormats()[0])).Id;
 
-            if (!IsInListTextbox("tb" + idTb, _listTbDone))
+            if (!IsTextBoxInList("tb" + textBoxId, _listTbDone))
             {
                 e.Effect = DragDropEffects.Move;
             }
@@ -342,9 +322,9 @@ namespace ToDoAppPhase2
 
         private void LvTodo_DragEnter(object sender, DragEventArgs e)
         {
-            int idTb = ((Task)e.Data.GetData(e.Data.GetFormats()[0])).Id;
+            int textBoxId = ((Task)e.Data.GetData(e.Data.GetFormats()[0])).Id;
             
-            if(!IsInListTextbox("tb" + idTb, _listTbTodo))
+            if(!IsTextBoxInList("tb" + textBoxId, _listTbTodo))
             {
                 e.Effect = DragDropEffects.Move;
             }
@@ -352,104 +332,104 @@ namespace ToDoAppPhase2
 
         private void LvDoing_DragDrop(object sender, DragEventArgs e)
         {
-            var t = (Task)e.Data.GetData(e.Data.GetFormats()[0]);
-            t.TypeList = 1;
-            if (_optionData == 0)
+            var task = (Task)e.Data.GetData(e.Data.GetFormats()[0]);
+            task.TypeList = (int)TypeList.Doing;
+            if (_dataOptions == (int)DataOptions.SqlServer)
             {
-                _bllSql.UpdateTask(t);
+                _bllSql.UpdateTask(task);
             } 
             else
             {
-                _bllFileSystem.UpdateTask(t);
+                _bllFileSystem.UpdateTask(task);
             }
-            CreateNewTextBox(t);  
+            CreateNewTextBox(task);  
             
-            if (IsInListTextbox("tb" + t.Id, _listTbTodo))
+            if (IsTextBoxInList("tb" + task.Id, _listTbTodo))
             {
-                var tb = FindTextbox("tb" + t.Id, _listTbTodo);
-                RemoveTextBoxFromListView(tb, lvToDo, _listTbTodo, ref _pointYTodo);
+                var textBox = FindTextbox("tb" + task.Id, _listTbTodo);
+                RemoveTextBoxFromListView(textBox, lvToDo, _listTbTodo, ref _pointYTodo);
             }
 
-            if (IsInListTextbox("tb" + t.Id, _listTbDone))
+            if (IsTextBoxInList("tb" + task.Id, _listTbDone))
             {
-                var tb = FindTextbox("tb" + t.Id, _listTbDone);
-                RemoveTextBoxFromListView(tb, lvDone, _listTbDone, ref _pointYDone);
+                var textBox = FindTextbox("tb" + task.Id, _listTbDone);
+                RemoveTextBoxFromListView(textBox, lvDone, _listTbDone, ref _pointYDone);
             }
         }
 
         private void LvDone_DragDrop(object sender, DragEventArgs e)
         {
-            Task t = (Task)e.Data.GetData(e.Data.GetFormats()[0]);
-            t.TypeList = 2;
-            if (_optionData == 0)
+            var task = (Task)e.Data.GetData(e.Data.GetFormats()[0]);
+            task.TypeList = (int)TypeList.Done;
+            if (_dataOptions == (int)DataOptions.SqlServer)
             {
-                _bllSql.UpdateTask(t);
+                _bllSql.UpdateTask(task);
             }
             else
             {
-                _bllFileSystem.UpdateTask(t);
+                _bllFileSystem.UpdateTask(task);
             }
-            CreateNewTextBox(t);
+            CreateNewTextBox(task);
 
-            if (IsInListTextbox("tb" + t.Id, _listTbTodo))
+            if (IsTextBoxInList("tb" + task.Id, _listTbTodo))
             {
-                var tb = FindTextbox("tb" + t.Id, _listTbTodo);
-                RemoveTextBoxFromListView(tb, lvToDo, _listTbTodo, ref _pointYTodo);
+                var textBox = FindTextbox("tb" + task.Id, _listTbTodo);
+                RemoveTextBoxFromListView(textBox, lvToDo, _listTbTodo, ref _pointYTodo);
             }
 
-            if (IsInListTextbox("tb" + t.Id, _listTbDoing))
+            if (IsTextBoxInList("tb" + task.Id, _listTbDoing))
             {
-                var tb = FindTextbox("tb" + t.Id, _listTbDoing);
-                RemoveTextBoxFromListView(tb, lvDoing, _listTbDoing, ref _pointYDoing);
+                var textBox = FindTextbox("tb" + task.Id, _listTbDoing);
+                RemoveTextBoxFromListView(textBox, lvDoing, _listTbDoing, ref _pointYDoing);
             }
         }
 
         private void LvTodo_DragDrop(object sender, DragEventArgs e)
         {
-            Task t = (Task)e.Data.GetData(e.Data.GetFormats()[0]);
-            t.TypeList = 0;
-            if (_optionData == 0)
+            var task = (Task)e.Data.GetData(e.Data.GetFormats()[0]);
+            task.TypeList = 0;
+            if (_dataOptions == (int)DataOptions.SqlServer)
             {
-                _bllSql.UpdateTask(t);
+                _bllSql.UpdateTask(task);
             }
             else
             {
-                _bllFileSystem.UpdateTask(t);
+                _bllFileSystem.UpdateTask(task);
             }
-            CreateNewTextBox(t);
+            CreateNewTextBox(task);
 
-            if (IsInListTextbox("tb" + t.Id, _listTbDone))
+            if (IsTextBoxInList("tb" + task.Id, _listTbDone))
             {
-                var tb = FindTextbox("tb" + t.Id, _listTbDone);
-                RemoveTextBoxFromListView(tb, lvDone, _listTbDone, ref _pointYDone);
+                var textBox = FindTextbox("tb" + task.Id, _listTbDone);
+                RemoveTextBoxFromListView(textBox, lvDone, _listTbDone, ref _pointYDone);
             }
 
-            if (IsInListTextbox("tb" + t.Id, _listTbDoing))
+            if (IsTextBoxInList("tb" + task.Id, _listTbDoing))
             {
-                var tb = FindTextbox("tb" + t.Id, _listTbDoing);
-                RemoveTextBoxFromListView(tb, lvDoing, _listTbDoing, ref _pointYDoing);
+                var textBox = FindTextbox("tb" + task.Id, _listTbDoing);
+                RemoveTextBoxFromListView(textBox, lvDoing, _listTbDoing, ref _pointYDoing);
             }
         }
 
         private void TextBox_MouseDown(object sender, MouseEventArgs e)
         {
-            var tb = sender as TextBox;
-            string nameTb = tb.Name;
-            int idTb = Convert.ToInt32(nameTb.Replace("tb", ""));
+            var textBox = sender as TextBox;
+            string textBoxName = textBox.Name;
+            int textBoxId = Convert.ToInt32(textBoxName.Replace("tb", ""));
             Task t;
 
-            if (_optionData == 0)
+            if (_dataOptions == (int)DataOptions.SqlServer)
             {
-                t = _bllSql.GetTask(idTb);
+                t = _bllSql.GetTask(textBoxId);
             } 
             else
             {
-                t = _bllFileSystem.GetTask(idTb);
+                t = _bllFileSystem.GetTask(textBoxId);
             }
 
             if (e.Button == MouseButtons.Left && e.Clicks == 1)
             {
-                tb.DoDragDrop(t, DragDropEffects.Move);
+                textBox.DoDragDrop(t, DragDropEffects.Move);
             }
             else
             {
@@ -468,12 +448,12 @@ namespace ToDoAppPhase2
             MessageBoxManager.Unregister();
             if (result == DialogResult.Yes)
             {
-                _optionData = 0;
+                _dataOptions = (int)DataOptions.SqlServer;
                 ShowData();
             } 
             else if (result == DialogResult.No)
             {
-                _optionData = 1;
+                _dataOptions = (int)DataOptions.FileSystem;
                 ShowData();                
             } 
         }

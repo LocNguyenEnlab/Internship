@@ -5,11 +5,11 @@ namespace TodoAppPhase3.DAL
 {
     public interface ITaskRepository
     {
-        void AddTask(Task t);
+        void AddTask(Task task);
         List<Task> GetAllTask();
-        Task GetTask(int id);
-        void UpdateTask(Task t);
-        void DeleteTask(int id);
+        Task GetTask(int taskId);
+        void UpdateTask(Task task);
+        void DeleteTask(int taskId);
         int GetMaxId();
     }
 }

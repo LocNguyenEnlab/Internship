@@ -5,11 +5,11 @@ namespace ToDoAppPhase1.DAL
 {
     public interface ISqlTaskRepository
     {
-        void AddTask(Task t);
-        void UpdateTask(Task t);
+        void AddTask(Task task);
+        void UpdateTask(Task task);
         int GetMaxId();
-        void DeleteTask(int idTask);
-        Task GetTask(int id);
+        void DeleteTask(int taskId);
+        Task GetTask(int taskId);
         List<Task> GetAllTask();
 
     }

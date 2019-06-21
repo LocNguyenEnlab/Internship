@@ -13,9 +13,9 @@ namespace TodoAppPhase3.DAL
             _context = context;
         }
 
-        public void AddTask(Task t)
+        public void AddTask(Task task)
         {
-            _context.Task.Add(t);
+            _context.Task.Add(task);
         }
 
         public List<Task> GetAllTask()
@@ -23,20 +23,20 @@ namespace TodoAppPhase3.DAL
             return _context.Task.ToList();
         }
 
-        public Task GetTask(int id)
+        public Task GetTask(int taskId)
         {
-            return _context.Task.Where(s => s.Id == id).SingleOrDefault();
+            return _context.Task.SingleOrDefault(s => s.Id == taskId);
         }
 
-        public void UpdateTask(Task t)
+        public void UpdateTask(Task task)
         {
-            var task = _context.Task.Where(s => s.Id == t.Id).SingleOrDefault();
-            _context.Entry(task).CurrentValues.SetValues(t);
+            //var task = _context.Task.SingleOrDefault(s => s.Id == task.Id);
+            _context.Entry(task).CurrentValues.SetValues(task);
         }
 
-        public void DeleteTask(int id)
+        public void DeleteTask(int taskId)
         {
-            var t = _context.Task.Where(s => s.Id == id).SingleOrDefault();
+            var t = _context.Task.SingleOrDefault(s => s.Id == taskId);
             _context.Task.Remove(t);
         }
 

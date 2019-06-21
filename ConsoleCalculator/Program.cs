@@ -13,7 +13,7 @@ namespace ConsoleCalculator
 
             ui.ShowMenuOperator();
             ui.ShowInputNumbers();
-            char operators = ui.GetOperator();
+            Operators operatorInput = (Operators)ui.GetOperator();
             var listNumbers = ui.GetListInputNumbers();
 
             if(listNumbers.Count < 2)
@@ -22,23 +22,23 @@ namespace ConsoleCalculator
             }
             else
             {
-                switch (operators)
+                switch (operatorInput)
                 {
-                    case '+':
+                    case Operators.Add:
                         result = logic.Add(listNumbers);
-                        ui.ShowResult(result, operators, listNumbers);
+                        ui.ShowResult(result, Operators.Add, listNumbers);
                         break;
-                    case '-':
+                    case Operators.Sub:
                         result = logic.Sub(listNumbers);
-                        ui.ShowResult(result, operators, listNumbers);
+                        ui.ShowResult(result, Operators.Sub, listNumbers);
                         break;
-                    case '*':
+                    case Operators.Mul:
                         result = logic.Mul(listNumbers);
-                        ui.ShowResult(result, operators, listNumbers);
+                        ui.ShowResult(result, Operators.Mul, listNumbers);
                         break;
-                    case '/':
+                    case Operators.Div:
                         result = logic.Div(listNumbers);
-                        ui.ShowResult(result, operators, listNumbers);
+                        ui.ShowResult(result, Operators.Div, listNumbers);
                         break;
                 }
             }

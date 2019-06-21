@@ -67,7 +67,7 @@ namespace ConsoleCalculator
             return _listNumbers;
         }
 
-        internal void ShowResult(double result, char operators, List<double> listNumbers)
+        internal void ShowResult(double result, Operators operators, List<double> listNumbers)
         {
             for (int i = 0; i < listNumbers.Count; i++)
             {
@@ -78,7 +78,7 @@ namespace ConsoleCalculator
                 }
                 else
                 {
-                    Console.Write(" {0} ", operators);
+                    Console.Write(" {0} ", (char)operators);
                 }
             }
             Console.WriteLine(" = {0}", result);

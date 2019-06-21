@@ -18,9 +18,9 @@ namespace ToDoAppPhase1.BLL
             _fileSystem = new FileSystemTaskRepository();
         }
 
-        public void AddTask(Task t)
+        public void AddTask(Task task)
         {
-            _fileSystem.AddTask(t);
+            _fileSystem.AddTask(task);
         }
 
         public int GetMaxId()
@@ -33,28 +33,28 @@ namespace ToDoAppPhase1.BLL
             return _fileSystem.GetAllTask();
         }
 
-        public Task GetTask(int id)
+        public Task GetTask(int taskId)
         {
-            return _fileSystem.GetTask(id);
+            return _fileSystem.GetTask(taskId);
         }
 
-        public void UpdateTask(Task t)
+        public void UpdateTask(Task taskId)
         {
-            _fileSystem.UpdateTask(t);
+            _fileSystem.UpdateTask(taskId);
         }
 
-        public void DeleteTask(int idTask)
+        public void DeleteTask(int taskId)
         {
-            _fileSystem.DeleteTask(idTask);
+            _fileSystem.DeleteTask(taskId);
         }
 
-        public bool IsDuplicateTask(Task t)
+        public bool IsDuplicateTask(Task task)
         {
-            t.Title = " " + t.Title;
-            var list = GetAllTask();
-            foreach(var item in list)
+            task.Title = " " + task.Title;
+            var taskList = GetAllTask();
+            foreach(var item in taskList)
             {
-                if (item.Compare(t))
+                if (item.Compare(task))
                     return true; 
             }
             return false;

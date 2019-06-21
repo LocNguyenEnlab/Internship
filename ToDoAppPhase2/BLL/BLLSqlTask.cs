@@ -16,14 +16,14 @@ namespace ToDoAppPhase1.BLL
             _sql = new SqlTaskRepository();
         }
 
-        public void AddTask(Task t)
+        public void AddTask(Task task)
         {
-            _sql.AddTask(t);
+            _sql.AddTask(task);
         }
         
-        public Task GetTask(int id)
+        public Task GetTask(int taskId)
         {
-            return _sql.GetTask(id);
+            return _sql.GetTask(taskId);
         }
 
         public List<Task> GetAllTask()
@@ -36,28 +36,28 @@ namespace ToDoAppPhase1.BLL
             return _sql.GetMaxId();
         }
 
-        public void DeleteTask(int idTask)
+        public void DeleteTask(int taskId)
         {
-            _sql.DeleteTask(idTask);
+            _sql.DeleteTask(taskId);
         }
 
-        public void UpdateTask(Task t)
+        public void UpdateTask(Task task)
         {
-            _sql.UpdateTask(t);
+            _sql.UpdateTask(task);
         }
 
         /// <summary>
         /// Check duplicate task
         /// </summary>
         /// <param name="list"></param>
-        /// <param name="t"></param>
+        /// <param name="task"></param>
         /// <returns>true if t already exists in list, otherwise return false</returns>
-        public bool IsDuplicateTask(Task t)
+        public bool IsDuplicateTask(Task task)
         {
-            var list = _sql.GetAllTask();
-            foreach (var item in list)
+            var taskList = _sql.GetAllTask();
+            foreach (var item in taskList)
             {
-                if (item.Compare(t))
+                if (item.Compare(task))
                     return true;
             }
             return false;

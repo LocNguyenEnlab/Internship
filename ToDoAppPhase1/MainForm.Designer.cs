@@ -40,27 +40,30 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("MV Boli", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(64, 78);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(73, 28);
             this.label1.TabIndex = 0;
             this.label1.Text = "To do";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("MV Boli", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(435, 78);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.Size = new System.Drawing.Size(70, 28);
             this.label3.TabIndex = 2;
             this.label3.Text = "Doing";
             // 
             // btnAddTask
             // 
             this.btnAddTask.AllowDrop = true;
+            this.btnAddTask.Font = new System.Drawing.Font("MV Boli", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddTask.Location = new System.Drawing.Point(67, 524);
             this.btnAddTask.Name = "btnAddTask";
-            this.btnAddTask.Size = new System.Drawing.Size(95, 23);
+            this.btnAddTask.Size = new System.Drawing.Size(124, 25);
             this.btnAddTask.TabIndex = 2;
             this.btnAddTask.Text = "Add new Task";
             this.btnAddTask.UseVisualStyleBackColor = true;
@@ -69,9 +72,10 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("MV Boli", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(804, 78);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(33, 13);
+            this.label2.Size = new System.Drawing.Size(64, 28);
             this.label2.TabIndex = 1;
             this.label2.Text = "Done";
             // 
@@ -108,7 +112,7 @@
             this.lvDone.DragDrop += new System.Windows.Forms.DragEventHandler(this.LvDone_DragDrop);
             this.lvDone.DragEnter += new System.Windows.Forms.DragEventHandler(this.LvDone_DragEnter);
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -120,7 +124,8 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnAddTask);
             this.Controls.Add(this.label1);
-            this.Name = "Form1";
+            this.MaximizeBox = false;
+            this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Plan Tracker";
             this.ResumeLayout(false);

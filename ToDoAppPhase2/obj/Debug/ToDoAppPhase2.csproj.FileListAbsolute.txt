@@ -66,3 +66,20 @@ C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\Internship\ToDoAppPhase2\obj\Deb
 C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\Internship\ToDoAppPhase2\obj\Debug\ToDoAppPhase2.csproj.CopyComplete
 C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\Internship\ToDoAppPhase2\obj\Debug\ToDoAppPhase1.exe
 C:\Users\loc.nguyen.VSERVER0\Desktop\LOC NGUYEN\Internship\ToDoAppPhase2\obj\Debug\ToDoAppPhase1.pdb
+C:\Github\Internship\ToDoAppPhase2\bin\Debug\ToDoAppPhase1.exe.config
+C:\Github\Internship\ToDoAppPhase2\bin\Debug\ToDoAppPhase1.exe
+C:\Github\Internship\ToDoAppPhase2\bin\Debug\ToDoAppPhase1.pdb
+C:\Github\Internship\ToDoAppPhase2\bin\Debug\Control.Draggable.dll
+C:\Github\Internship\ToDoAppPhase2\bin\Debug\MSharp.Framework.dll
+C:\Github\Internship\ToDoAppPhase2\bin\Debug\Newtonsoft.Json.dll
+C:\Github\Internship\ToDoAppPhase2\bin\Debug\MSharp.Framework.pdb
+C:\Github\Internship\ToDoAppPhase2\bin\Debug\MSharp.Framework.xml
+C:\Github\Internship\ToDoAppPhase2\obj\Debug\ToDoAppPhase2.csprojAssemblyReference.cache
+C:\Github\Internship\ToDoAppPhase2\obj\Debug\ToDoAppPhase2.MainForm.resources
+C:\Github\Internship\ToDoAppPhase2\obj\Debug\ToDoAppPhase2.AddTaskForm.resources
+C:\Github\Internship\ToDoAppPhase2\obj\Debug\ToDoAppPhase1.Properties.Resources.resources
+C:\Github\Internship\ToDoAppPhase2\obj\Debug\ToDoAppPhase2.csproj.GenerateResource.cache
+C:\Github\Internship\ToDoAppPhase2\obj\Debug\ToDoAppPhase2.csproj.CoreCompileInputs.cache
+C:\Github\Internship\ToDoAppPhase2\obj\Debug\ToDoAppPhase2.csproj.CopyComplete
+C:\Github\Internship\ToDoAppPhase2\obj\Debug\ToDoAppPhase1.exe
+C:\Github\Internship\ToDoAppPhase2\obj\Debug\ToDoAppPhase1.pdb

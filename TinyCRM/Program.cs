@@ -13,17 +13,17 @@ namespace TinyCRM
             while (true)
             {
                 ui.ShowMainMenu();
-                int selectedItem = ui.GetEnteringInputNumber();
-
+                MenuItems selectedItem = (MenuItems)ui.GetEnteringInputNumber();
+                
                 switch (selectedItem)
                 {
-                    case 1: //Add new customer
+                    case MenuItems.Add: //Add new customer
                         ui.ShowEnteringCustomer();
                         var newCustomer = ui.GetEnteringCustomer();
                         var result = logic.Save(newCustomer);
                         ui.Inform(result.Message);                        
                         break;
-                    case 2: //Edit a customer
+                    case MenuItems.Edit: //Edit a customer
                         ui.ShowEnteringId("Input id to edit customer: ");
                         int idCustomerEdit = ui.GetEnteringInputNumber();
                         Customer editCustomer = logic.GetCustomer(idCustomerEdit);
@@ -41,7 +41,7 @@ namespace TinyCRM
                             ui.Inform("Invalid email address!");
                         }
                         break;
-                    case 3: //delete a customer
+                    case MenuItems.Delete: //delete a customer
                         ui.ShowEnteringId("Input id to delete customer: ");
                         int customerId = ui.GetEnteringInputNumber();
                         var customer = logic.GetCustomer(customerId);
@@ -58,16 +58,16 @@ namespace TinyCRM
                             ui.Inform("Invalid Customer Id!");
                         }
                         break;
-                    case 4: //view customers
+                    case MenuItems.View: //view customers
                         ui.ShowOptionViewCustomer();
-                        int selectView = ui.GetEnteringInputNumber();
+                        MenuItems selectView = (MenuItems)ui.GetEnteringInputNumber();
                         switch (selectView)
                         {
-                            case 41: //show all customers
+                            case MenuItems.ViewAllCustomers: //show all customers
                                 List<Customer> customers = logic.GetCustomers();
                                 ui.ShowAllCustomers(customers);
                                 break;
-                            case 42: //show a customer
+                            case MenuItems.ViewACustomer: //show a customer
                                 ui.ShowEnteringId("Input id to view customer: ");
                                 int idCustomerShow = ui.GetEnteringInputNumber();
                                 Customer customerShow = logic.GetCustomer(idCustomerShow);
@@ -82,7 +82,7 @@ namespace TinyCRM
                                 break;
                         }
                         break;
-                    case 5: //quit
+                    case MenuItems.Quit: //quit
                         return 0;
                     default:
                         ui.Inform("Bad selection");
@@ -91,5 +91,5 @@ namespace TinyCRM
             }
 
         }
-    }
+    }    
 }

@@ -9,3 +9,14 @@ C:\Github\ConsoleCalculator\ConsoleCalculator\bin\Debug\netcoreapp2.1\ConsoleCal
 C:\Github\ConsoleCalculator\ConsoleCalculator\bin\Debug\netcoreapp2.1\ConsoleCalculator.pdb
 C:\Github\ConsoleCalculator\ConsoleCalculator\obj\Debug\netcoreapp2.1\ConsoleCalculator.dll
 C:\Github\ConsoleCalculator\ConsoleCalculator\obj\Debug\netcoreapp2.1\ConsoleCalculator.pdb
+C:\Github\Internship\ConsoleCalculator\bin\Debug\netcoreapp2.1\ConsoleCalculator.deps.json
+C:\Github\Internship\ConsoleCalculator\bin\Debug\netcoreapp2.1\ConsoleCalculator.runtimeconfig.json
+C:\Github\Internship\ConsoleCalculator\bin\Debug\netcoreapp2.1\ConsoleCalculator.runtimeconfig.dev.json
+C:\Github\Internship\ConsoleCalculator\bin\Debug\netcoreapp2.1\ConsoleCalculator.dll
+C:\Github\Internship\ConsoleCalculator\bin\Debug\netcoreapp2.1\ConsoleCalculator.pdb
+C:\Github\Internship\ConsoleCalculator\obj\Debug\netcoreapp2.1\ConsoleCalculator.csprojAssemblyReference.cache
+C:\Github\Internship\ConsoleCalculator\obj\Debug\netcoreapp2.1\ConsoleCalculator.csproj.CoreCompileInputs.cache
+C:\Github\Internship\ConsoleCalculator\obj\Debug\netcoreapp2.1\ConsoleCalculator.AssemblyInfoInputs.cache
+C:\Github\Internship\ConsoleCalculator\obj\Debug\netcoreapp2.1\ConsoleCalculator.AssemblyInfo.cs
+C:\Github\Internship\ConsoleCalculator\obj\Debug\netcoreapp2.1\ConsoleCalculator.dll
+C:\Github\Internship\ConsoleCalculator\obj\Debug\netcoreapp2.1\ConsoleCalculator.pdb

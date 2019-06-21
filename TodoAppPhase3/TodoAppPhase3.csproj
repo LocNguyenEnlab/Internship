@@ -55,10 +55,11 @@
     <Compile Include="BLL\BLLTask.cs" />
     <Compile Include="BLL\Task.cs" />
     <Compile Include="BLL\DbContext.cs" />
+    <Compile Include="BLL\TypeList.cs" />
     <Compile Include="DAL\ITaskRepository.cs" />
     <Compile Include="DAL\TaskRepository.cs" />
     <Compile Include="DAL\UnitOfWork.cs" />
-    <Compile Include="MessageBoxManager.cs" />
+    <Compile Include="BLL\MessageBoxManager.cs" />
     <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +79,9 @@
     <Compile Include="View\FormAddTask.Designer.cs">
       <DependentUpon>AddTaskForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\AddTaskForm.resx">
+      <DependentUpon>AddTaskForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -93,9 +97,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="View\FormAddTask.resx">
-      <DependentUpon>AddTaskForm.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

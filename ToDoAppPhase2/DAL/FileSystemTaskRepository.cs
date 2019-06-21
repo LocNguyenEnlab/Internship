@@ -11,7 +11,6 @@ namespace ToDoAppPhase1.DAL
     {
         private string _path;
 
-
         public FileSystemTaskRepository()
         {
             _path = @"C:\FileSystemTodoApp\TodoAppPhase2.txt";
@@ -23,113 +22,116 @@ namespace ToDoAppPhase1.DAL
             }
         }
 
-        public void AddTask(Task t)
+        public void AddTask(Task task)
         {
-            var s = string.Format("Id: {0}, Title: {1}, Description: {2}, TimeCreate: {3}, TypeList: {4}",
-                t.Id, t.Title, t.Description, t.TimeCreate.ToString(), t.TypeList);
-            var s1 = File.ReadAllLines(_path);
+            var addLine = string.Format("Id: {0}, Title: {1}, Description: {2}, TimeCreate: {3}, TypeList: {4}",
+                task.Id, task.Title, task.Description, task.TimeCreate.ToString(), task.TypeList);
+            var lines = File.ReadAllLines(_path);
             int id = GetMaxId() + 1;
-            StreamWriter sw1 = File.CreateText(_path);
-            sw1.Flush();
-            sw1.Close();
+
+            //delete file contents
+            StreamWriter streamWriter = File.CreateText(_path);
+            streamWriter.Flush();
+            streamWriter.Close();
             
-            using (StreamWriter sw = File.AppendText(_path))
+            using (StreamWriter streamWriter1 = File.AppendText(_path))
             {
-                sw.WriteLine(s);
-                for (int i = 0; i < s1.Count()-1; i++)
+                streamWriter1.WriteLine(addLine);
+                for (int i = 0; i < lines.Count()-1; i++)
                 {
-                    sw.WriteLine(s1[i]);
+                    streamWriter1.WriteLine(lines[i]);
                 }
-                sw.WriteLine("MaxID: {0}", id);
+                streamWriter1.WriteLine("MaxID: {0}", id);
             }
         }
 
         public int GetMaxId()
         {
-            var s = File.ReadAllLines(_path);
-            var s1 = s[s.Count()-1];
-            var s2 = s1.Split(':');
-            int maxID = Convert.ToInt32(s2[1]);
-            return maxID;
+            var lines = File.ReadAllLines(_path);
+            var finalLine = lines[lines.Count()-1];
+            var finalLineSplit = finalLine.Split(':');
+            int maxId = Convert.ToInt32(finalLineSplit[1]);
+            return maxId;
         }
 
         public List<Task> GetAllTask()
         {
-            var list = new List<Task>();
-            var s2 = File.ReadAllLines(_path);
-            for (int i = 0; i < s2.Count()-1; i++)
+            var taskList = new List<Task>();
+            var lines = File.ReadAllLines(_path);
+            for (int i = 0; i < lines.Count()-1; i++)
             {
-                var t = new Task();
-                var s3 = s2[i].Split(':', ',');
-                t.Id = Convert.ToInt32(s3[1]);
-                t.Title = s3[3];
-                t.Description = s3[5];
-                string time = s3[7] + ":" + s3[8] + ":" + s3[9];
-                t.TypeList = Convert.ToInt32(s3[11]);
-                t.TimeCreate = Convert.ToDateTime(time);
-                list.Add(t);
+                var task = new Task();
+                var lineSplit = lines[i].Split(':', ',');
+                task.Id = Convert.ToInt32(lineSplit[1]);
+                task.Title = lineSplit[3]; 
+                task.Description = lineSplit[5];
+                string time = lineSplit[7] + ":" + lineSplit[8] + ":" + lineSplit[9];
+                task.TypeList = Convert.ToInt32(lineSplit[11]);
+                task.TimeCreate = Convert.ToDateTime(time);
+                taskList.Add(task);
             }
-            return list;
+            return taskList;
         }
 
-        public Task GetTask(int id)
+        public Task GetTask(int taskId)
         {
-            var list = GetAllTask();
-            foreach(var item in list)
-            {
-                if (item.Id == id)
-                {
-                    return item;
-                }
-            }
-            return null;
+            var taskList = GetAllTask();
+            return taskList.FirstOrDefault(s => s.Id == taskId);
         }
 
-        public void UpdateTask(Task t)
+        /// <summary>
+        /// idea: delete file contents and rewrite file contents after update 
+        /// </summary>
+        /// <param name="task"></param>
+        public void UpdateTask(Task task)
         {
-            var s = File.ReadAllLines(_path);
-            StreamWriter sww = File.CreateText(_path);
-            sww.Flush();
-            sww.Close();
-            foreach(var item in s)
+            var lines = File.ReadAllLines(_path);
+            //delete file contents
+            StreamWriter streamWriter = File.CreateText(_path);
+            streamWriter.Flush();
+            streamWriter.Close();
+            foreach(var item in lines)
             {
-                int id = Convert.ToInt32(item.Split(':', ',')[1]);
-                var t1 = GetTask(id);
-                if (t.Id == id)
+                int taskId = Convert.ToInt32(item.Split(':', ',')[1]);
+                if (task.Id == taskId) 
                 {
-                    var s1 = string.Format("Id: {0}, Title: {1}, Description: {2}, TimeCreate: {3}, TypeList: {4}", 
-                        t.Id, t.Title, t.Description, t.TimeCreate.ToString(), t.TypeList);
-                    using (StreamWriter sw = File.AppendText(_path))
+                    var updateLine = string.Format("Id: {0}, Title: {1}, Description: {2}, TimeCreate: {3}, TypeList: {4}", 
+                        task.Id, task.Title, task.Description, task.TimeCreate.ToString(), task.TypeList);
+                    using (StreamWriter streamWriter1 = File.AppendText(_path))
                     {
-                        sw.WriteLine(s1);
+                        streamWriter1.WriteLine(updateLine);
                     }
                 }
                 else
                 {
-                    using (StreamWriter sw = File.AppendText(_path))
+                    using (StreamWriter streamWriter1 = File.AppendText(_path))
                     {
-                        sw.WriteLine(item);
+                        streamWriter1.WriteLine(item);
                     }
                 }
             }
         }
 
-        public void DeleteTask(int idTask)
+        /// <summary>
+        /// idea: delete file contents and rewrite file contents ignore the task was selected
+        /// </summary>
+        /// <param name="taskId"></param>
+        public void DeleteTask(int taskId)
         {
-            var s = File.ReadAllLines(_path);
-            StreamWriter sw2 = File.CreateText(_path);
-            sw2.Flush();
-            sw2.Close();
+            var lines = File.ReadAllLines(_path);
+            //delete file contents
+            StreamWriter streamWriter = File.CreateText(_path);
+            streamWriter.Flush();
+            streamWriter.Close();
 
-            foreach (var item in s)
+            foreach (var line in lines)
             {
-                int id = Convert.ToInt32(item.Split(':', ',')[1]);
-                var t1 = GetTask(id);
-                if (idTask != id)
+                int id = Convert.ToInt32(line.Split(':', ',')[1]);
+                if (taskId != id)
                 {
-                    using (StreamWriter sw = File.AppendText(_path))
+                    using (StreamWriter streamWriter1 = File.AppendText(_path))
                     {
-                        sw.WriteLine(item);
+                        streamWriter1.WriteLine(line);
                     }
                 }
             }

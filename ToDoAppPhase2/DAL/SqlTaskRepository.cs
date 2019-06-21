@@ -19,23 +19,23 @@ namespace ToDoAppPhase1.DAL
             _cnn = new SqlConnection(_connectionString);
         }
 
-        public void AddTask(Task t)
+        public void AddTask(Task task)
         {            
             _cnn.Open();
-            var sql = string.Format("insert into Task (Title, Description, TypeList, TimeCreate) " +
-                "values (N'{0}', N'{1}', {2}, '{3}')", t.Title, t.Description, t.TypeList, t.TimeCreate);
-            var cmd = new SqlCommand(sql, _cnn);
+            var query = string.Format("insert into Task (Title, Description, TypeList, TimeCreate) " +
+                "values (N'{0}', N'{1}', {2}, '{3}')", task.Title, task.Description, task.TypeList, task.TimeCreate);
+            var cmd = new SqlCommand(query, _cnn);
             cmd.ExecuteNonQuery();
             cmd.Dispose();
             _cnn.Close();
         }
 
-        public void UpdateTask(Task t)
+        public void UpdateTask(Task task)
         {
             _cnn.Open();
-            var sql = string.Format("update Task set Title = N'{0}', Description = N'{1}', TypeList = {2} where Id = {3}",
-                t.Title, t.Description, t.TypeList, t.Id);
-            var cmd = new SqlCommand(sql, _cnn);
+            var query = string.Format("update Task set Title = N'{0}', Description = N'{1}', TypeList = {2} where Id = {3}",
+                task.Title, task.Description, task.TypeList, task.Id);
+            var cmd = new SqlCommand(query, _cnn);
             cmd.ExecuteNonQuery();
             cmd.Dispose();
             _cnn.Close();
@@ -45,8 +45,8 @@ namespace ToDoAppPhase1.DAL
         {
             int maxId = 0;
             _cnn.Open();
-            var sql = "select Max(Id) from Task";
-            var cmd = new SqlCommand(sql, _cnn);
+            var query = "select Max(Id) from Task";
+            var cmd = new SqlCommand(query, _cnn);
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -60,62 +60,62 @@ namespace ToDoAppPhase1.DAL
                 }
             }
             reader.Close();
-            cmd.Clone();
+            cmd.Dispose();
             _cnn.Close();
             return maxId;
         }
 
-        public void DeleteTask(int idTask)
+        public void DeleteTask(int taskId)
         {
             _cnn.Open();
-            var sql = string.Format("delete Task where Id = {0}", idTask);
-            var cmd = new SqlCommand(sql, _cnn);
+            var query = string.Format("delete Task where Id = {0}", taskId);
+            var cmd = new SqlCommand(query, _cnn);
             cmd.ExecuteNonQuery();
             cmd.Dispose();
             _cnn.Close();
         }
 
-        public Task GetTask(int id)
+        public Task GetTask(int taskId)
         {
-            var t = new Task();
+            var task = new Task();
             _cnn.Open();
-            var sql = string.Format("select * from Task where Id = {0}", id);
-            var cmd = new SqlCommand(sql, _cnn);
+            var query = string.Format("select * from Task where Id = {0}", taskId);
+            var cmd = new SqlCommand(query, _cnn);
             SqlDataReader reader = cmd.ExecuteReader();
             while(reader.Read())
             {
-                t.Id = Convert.ToInt32(reader["Id"]);
-                t.Title = reader["Title"].ToString();
-                t.Description = reader["Description"].ToString();
-                t.TimeCreate = Convert.ToDateTime(reader["TimeCreate"]);
+                task.Id = Convert.ToInt32(reader["Id"]);
+                task.Title = reader["Title"].ToString();
+                task.Description = reader["Description"].ToString();
+                task.TimeCreate = Convert.ToDateTime(reader["TimeCreate"]);
             }
             reader.Close();
             cmd.Dispose();
             _cnn.Close();
-            return t;
+            return task;
         }
 
         public List<Task> GetAllTask()
         {
-            var list = new List<Task>();
+            var taskList = new List<Task>();
             _cnn.Open();
-            var sql = string.Format("select * from Task");
-            var cmd = new SqlCommand(sql, _cnn);
+            var query = string.Format("select * from Task");
+            var cmd = new SqlCommand(query, _cnn);
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                var t = new Task();
-                t.Id = Convert.ToInt32(reader["Id"]);
-                t.Title = reader["Title"].ToString();
-                t.Description = reader["Description"].ToString();
-                t.TimeCreate = Convert.ToDateTime(reader["TimeCreate"]);
-                t.TypeList = Convert.ToInt32(reader["TypeList"]);
-                list.Add(t);
+                var task = new Task();
+                task.Id = Convert.ToInt32(reader["Id"]);
+                task.Title = reader["Title"].ToString();
+                task.Description = reader["Description"].ToString();
+                task.TimeCreate = Convert.ToDateTime(reader["TimeCreate"]);
+                task.TypeList = Convert.ToInt32(reader["TypeList"]);
+                taskList.Add(task);
             }
             reader.Close();
             cmd.Dispose();
             _cnn.Close();
-            return list;
+            return taskList;
         }
     }
 }

@@ -25,25 +25,25 @@ namespace TodoAppPhase3.BLL
             return _uow.TaskRepository.GetAllTask();
         }
 
-        internal void DeleteTask(int idTask)
+        internal void DeleteTask(int taskId)
         {
-            _uow.TaskRepository.DeleteTask(idTask);
+            _uow.TaskRepository.DeleteTask(taskId);
         }
 
-        internal bool IsDuplicateTask(Task t)
+        internal bool IsDuplicateTask(Task task)
         {
             var list = GetAllTask();
             foreach (var item in list)
             {
-                if (item.Title == t.Title && item.Description == t.Description)
+                if (item.Title == task.Title && item.Description == task.Description)
                     return true;
             }
             return false;
         }
 
-        internal void AddTask(Task t)
+        internal void AddTask(Task task)
         {
-            _uow.TaskRepository.AddTask(t);
+            _uow.TaskRepository.AddTask(task);
         }
 
         internal int GetMaxId()
@@ -51,14 +51,14 @@ namespace TodoAppPhase3.BLL
             return _uow.TaskRepository.GetMaxId();
         }
 
-        internal Task GetTask(int id)
+        internal Task GetTask(int taskId)
         {
-            return _uow.TaskRepository.GetTask(id);
+            return _uow.TaskRepository.GetTask(taskId);
         }
 
-        internal void UpdateTask(Task t)
+        internal void UpdateTask(Task task)
         {
-            _uow.TaskRepository.UpdateTask(t);
+            _uow.TaskRepository.UpdateTask(task);
         }
 
         internal void Commit()

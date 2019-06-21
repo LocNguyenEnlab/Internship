@@ -6,7 +6,7 @@ namespace ToDoAppPhase1
     public partial class AddTaskForm : Form
     {
         private Task _taskEdit;
-        public delegate void PassData(Task t);
+        public delegate void PassData(Task task);
         public delegate void ShowMainForm();
         public PassData passData;
         public ShowMainForm showMainForm;
@@ -17,13 +17,13 @@ namespace ToDoAppPhase1
             btnUpdate.Visible = false;
         }
 
-        public AddTaskForm(Task t)
+        public AddTaskForm(Task task)
         {
             InitializeComponent();
-            tbTitle.Text = t.Title;
-            tbDescription.Text = t.Description;
+            tbTitle.Text = task.Title;
+            tbDescription.Text = task.Description;
             btnOk.Visible = false;
-            _taskEdit = t;
+            _taskEdit = task;
         }        
 
         private void BtnOk_Click(object sender, EventArgs e)
