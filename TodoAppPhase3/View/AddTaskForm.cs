@@ -6,9 +6,10 @@ namespace TodoAppPhase3
 {
     public partial class AddTaskForm : Form
     {
-        private BLLTask _bllTask;
-        private Task taskEdit;
-        public delegate void PassData(Task task);
+        private BusinessLogic _bll;
+        private Task _taskEdit;
+        private Author _authorEdit;
+        public delegate void PassData(Task task, Author author);
         public delegate void ShowMainForm();
         public PassData passData;
         public ShowMainForm showMainForm;
@@ -17,17 +18,18 @@ namespace TodoAppPhase3
         {
             InitializeComponent();
             btnUpdate.Visible = false;
-            _bllTask = new BLLTask();
+            _bll = new BusinessLogic();
         }
 
-        public AddTaskForm(Task task)
+        public AddTaskForm(Task task, Author author)
         {
             InitializeComponent();
             tbTitle.Text = task.Title;
             tbDescription.Text = task.Description;
             btnOk.Visible = false;
-            taskEdit = task;
-            _bllTask = new BLLTask();
+            _taskEdit = task;
+            _authorEdit = author;
+            _bll = new BusinessLogic();
         }
 
         private void BtnOk_Click(object sender, EventArgs e)
@@ -41,9 +43,14 @@ namespace TodoAppPhase3
                 TypeList = (int)TypeList.Todo
             };
 
-            if (!_bllTask.IsEmpty(task))
+            var author = new Author
             {
-                passData(task);
+                AuthorName = tbAuthor.Text
+            };
+
+            if (!_bll.IsEmptyTask(task))
+            {
+                passData(task, author);
                 this.Dispose();
             }
             else
@@ -59,12 +66,13 @@ namespace TodoAppPhase3
 
         private void BtnUpdate_Click(object sender, EventArgs e)
         {
-            taskEdit.Title = tbTitle.Text;
-            taskEdit.Description = tbDescription.Text;
+            _taskEdit.Title = tbTitle.Text;
+            _taskEdit.Description = tbDescription.Text;
+            
 
-            if (!_bllTask.IsEmpty(taskEdit))
+            if (!_bll.IsEmptyTask(_taskEdit))
             {
-                passData(taskEdit);
+                passData(_taskEdit, _authorEdit);
                 this.Dispose();
             }
             else

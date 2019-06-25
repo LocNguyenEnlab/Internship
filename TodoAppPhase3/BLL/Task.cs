@@ -13,5 +13,9 @@ namespace TodoAppPhase3.BLL
         public string Description { get; set; }
         public DateTime TimeCreate { get; set; }
         public int TypeList { get; set; } //0: todo, 1: doing, 2: done
+        [Required]
+        public string AuthorName { get; set; }
+        [Required]
+        public virtual Author Author { get; set; }
     }
 }

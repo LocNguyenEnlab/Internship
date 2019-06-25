@@ -52,14 +52,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLL\BLLTask.cs" />
+    <Compile Include="BLL\Author.cs" />
+    <Compile Include="BLL\BusinessLogic.cs" />
     <Compile Include="BLL\Task.cs" />
-    <Compile Include="BLL\DbContext.cs" />
+    <Compile Include="BLL\DataContext.cs" />
     <Compile Include="BLL\TypeList.cs" />
-    <Compile Include="DAL\ITaskRepository.cs" />
-    <Compile Include="DAL\TaskRepository.cs" />
+    <Compile Include="DAL\GenericRepository.cs" />
+    <Compile Include="DAL\IGenericRepository.cs" />
     <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="BLL\MessageBoxManager.cs" />
+    <Compile Include="Migrations\201906240357219_AddAuthor.cs" />
+    <Compile Include="Migrations\201906240357219_AddAuthor.Designer.cs">
+      <DependentUpon>201906240357219_AddAuthor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906240719132_addRequired.cs" />
+    <Compile Include="Migrations\201906240719132_addRequired.Designer.cs">
+      <DependentUpon>201906240719132_addRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,6 +88,12 @@
     <Compile Include="View\FormAddTask.Designer.cs">
       <DependentUpon>AddTaskForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Migrations\201906240357219_AddAuthor.resx">
+      <DependentUpon>201906240357219_AddAuthor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906240719132_addRequired.resx">
+      <DependentUpon>201906240719132_addRequired.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\AddTaskForm.resx">
       <DependentUpon>AddTaskForm.cs</DependentUpon>
     </EmbeddedResource>

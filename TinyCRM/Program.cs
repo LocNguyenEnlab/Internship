@@ -13,7 +13,7 @@ namespace TinyCRM
             while (true)
             {
                 ui.ShowMainMenu();
-                MenuItems selectedItem = (MenuItems)ui.GetEnteringInputNumber();
+                var selectedItem = (MenuItems)ui.GetEnteringInputNumber();
                 
                 switch (selectedItem)
                 {
@@ -60,7 +60,7 @@ namespace TinyCRM
                         break;
                     case MenuItems.View: //view customers
                         ui.ShowOptionViewCustomer();
-                        MenuItems selectView = (MenuItems)ui.GetEnteringInputNumber();
+                        var selectView = (MenuItems)ui.GetEnteringInputNumber();
                         switch (selectView)
                         {
                             case MenuItems.ViewAllCustomers: //show all customers
