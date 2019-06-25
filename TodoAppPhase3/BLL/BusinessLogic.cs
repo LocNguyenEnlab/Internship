@@ -39,10 +39,9 @@ namespace TodoAppPhase3.BLL
         internal bool IsDuplicateTask(Task task)
         {
             var list = GetAllTask();
-            foreach (var item in list)
+            if (list.FirstOrDefault(s => s.Title == task.Title && s.Description == task.Description) != null)
             {
-                if (item.Title == task.Title && item.Description == task.Description)
-                    return true;
+                return true;
             }
             return false;
         }
@@ -84,6 +83,29 @@ namespace TodoAppPhase3.BLL
         {
             return _unitOfWork.AuthorRepository.GetMaxId(s => s.Id);
         }
+
+        public bool IsEmptyAuthor(Author author)
+        {
+            if (author.AuthorName == "")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool IsDuplicateAuthor(Author author)
+        {
+            var list = GetAllAuthors();
+            if (list.FirstOrDefault(s => s.AuthorName == author.AuthorName) != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
         #endregion
 
         internal void CreateTransaction()

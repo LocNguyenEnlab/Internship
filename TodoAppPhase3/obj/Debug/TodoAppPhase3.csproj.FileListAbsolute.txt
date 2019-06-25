@@ -17,3 +17,4 @@ C:\Github\Internship\TodoAppPhase3\obj\Debug\TodoAppPhase3.pdb
 C:\Github\Internship\TodoAppPhase3\obj\Debug\TodoAppPhase3.csprojAssemblyReference.cache
 C:\Github\Internship\TodoAppPhase3\obj\Debug\TodoAppPhase3.Migrations.AddAuthor.resources
 C:\Github\Internship\TodoAppPhase3\obj\Debug\TodoAppPhase3.Migrations.addRequired.resources
+C:\Github\Internship\TodoAppPhase3\obj\Debug\TodoAppPhase3.Migrations.RollBackAddRequired.resources

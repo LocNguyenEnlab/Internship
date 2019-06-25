@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using TodoAppPhase3.BLL;
 
@@ -19,6 +20,7 @@ namespace TodoAppPhase3
             InitializeComponent();
             btnUpdate.Visible = false;
             _bll = new BusinessLogic();
+            LoadAuthor("");
         }
 
         public AddTaskForm(Task task, Author author)
@@ -29,7 +31,23 @@ namespace TodoAppPhase3
             btnOk.Visible = false;
             _taskEdit = task;
             _authorEdit = author;
-            _bll = new BusinessLogic();
+            _bll = new BusinessLogic();            
+            LoadAuthor(author.AuthorName);
+            cbAuthor.SelectedItem = author.AuthorName;
+            cbAuthor.DropDownStyle = ComboBoxStyle.DropDownList;
+        }
+
+        private void LoadAuthor(string authorName)
+        {
+            var authors = _bll.GetAllAuthors();
+            foreach (var author in authors)
+            {
+                cbAuthor.Items.Add(author.AuthorName);
+                if (author.AuthorName == authorName)
+                {
+                    cbAuthor.SelectedItem = authorName;
+                }
+            }
         }
 
         private void BtnOk_Click(object sender, EventArgs e)
@@ -43,12 +61,16 @@ namespace TodoAppPhase3
                 TypeList = (int)TypeList.Todo
             };
 
-            var author = new Author
-            {
-                AuthorName = tbAuthor.Text
-            };
+            var authors = _bll.GetAllAuthors();
+            var author = authors.FirstOrDefault(s => s.AuthorName == cbAuthor.Text);
 
-            if (!_bll.IsEmptyTask(task))
+            if (author == null)
+            {
+                author = new Author();
+                author.AuthorName = cbAuthor.Text;
+            }
+
+            if (!_bll.IsEmptyTask(task) && !_bll.IsEmptyAuthor(author))
             {
                 passData(task, author);
                 this.Dispose();
@@ -68,11 +90,12 @@ namespace TodoAppPhase3
         {
             _taskEdit.Title = tbTitle.Text;
             _taskEdit.Description = tbDescription.Text;
-            
+            var authors = _bll.GetAllAuthors();
+            var author = authors.FirstOrDefault(s => s.AuthorName == cbAuthor.Text);
 
             if (!_bll.IsEmptyTask(_taskEdit))
             {
-                passData(_taskEdit, _authorEdit);
+                passData(_taskEdit, author);
                 this.Dispose();
             }
             else

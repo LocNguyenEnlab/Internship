@@ -69,6 +69,10 @@
     <Compile Include="Migrations\201906240719132_addRequired.Designer.cs">
       <DependentUpon>201906240719132_addRequired.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906250338238_RollBackAddRequired.cs" />
+    <Compile Include="Migrations\201906250338238_RollBackAddRequired.Designer.cs">
+      <DependentUpon>201906250338238_RollBackAddRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +97,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906240719132_addRequired.resx">
       <DependentUpon>201906240719132_addRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906250338238_RollBackAddRequired.resx">
+      <DependentUpon>201906250338238_RollBackAddRequired.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\AddTaskForm.resx">
       <DependentUpon>AddTaskForm.cs</DependentUpon>

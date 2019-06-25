@@ -82,7 +82,7 @@ namespace TodoAppPhase3
         private TextBox FindTextbox(string name, List<TextBox> list)
         {
             return list.FirstOrDefault(_ => _.Name == name);
-        }        
+        }
 
         private int FindTextBoxIndexInList(List<TextBox> list, TextBox textBox)
         {
@@ -105,7 +105,7 @@ namespace TodoAppPhase3
                 }
                 pointY -= 25;
             }
-            
+
             listView.Controls.Remove(textBox);
             list.Remove(textBox);
         }
@@ -125,24 +125,50 @@ namespace TodoAppPhase3
         {
             if (IsTextBoxInList("tb" + taskId, _listTbTodo))
             {
-                var textBox = FindTextbox("tb" + taskId, _listTbTodo);
-                RemoveTextBoxFromListView(textBox, lvToDo, _listTbTodo, ref _pointYTodo);
-                _bll.DeleteTask(taskId);
-                _bll.Commit();
+                try
+                {
+                    _bll.CreateTransaction();
+                    var textBox = FindTextbox("tb" + taskId, _listTbTodo);
+                    RemoveTextBoxFromListView(textBox, lvToDo, _listTbTodo, ref _pointYTodo);
+                    _bll.DeleteTask(taskId);
+                    _bll.Commit();
+                }
+                catch (Exception)
+                {
+                    _bll.RollBack();
+                }
+                
             }
             else if (IsTextBoxInList("tb" + taskId, _listTbDoing))
             {
-                var textBox = FindTextbox("tb" + taskId, _listTbDoing);
-                RemoveTextBoxFromListView(textBox, lvDoing, _listTbDoing, ref _pointYDoing);
-                _bll.DeleteTask(taskId);
-                _bll.Commit();
+                try
+                {
+                    _bll.CreateTransaction();
+                    var textBox = FindTextbox("tb" + taskId, _listTbDoing);
+                    RemoveTextBoxFromListView(textBox, lvDoing, _listTbDoing, ref _pointYDoing);
+                    _bll.DeleteTask(taskId);
+                    _bll.Commit();
+                }
+                catch (Exception)
+                {
+                    _bll.RollBack();
+                }
+                
             }
             else if (IsTextBoxInList("tb" + taskId, _listTbDone))
             {
-                var textBox = FindTextbox("tb" + taskId, _listTbDone);
-                RemoveTextBoxFromListView(textBox, lvDone, _listTbDone, ref _pointYDone);
-                _bll.DeleteTask(taskId);
-                _bll.Commit();
+                try
+                {
+                    _bll.CreateTransaction();
+                    var textBox = FindTextbox("tb" + taskId, _listTbDone);
+                    RemoveTextBoxFromListView(textBox, lvDone, _listTbDone, ref _pointYDone);
+                    _bll.DeleteTask(taskId);
+                    _bll.Commit();
+                }
+                catch (Exception)
+                {
+                    _bll.RollBack();
+                }
             }
         }
 
@@ -189,25 +215,37 @@ namespace TodoAppPhase3
             {
                 if (!_bll.IsDuplicateTask(task))
                 {
-                    this.Show();
-                    _bll.CreateTransaction();
-                    
+                    this.Show();                    
                     try
                     {
-                        _bll.AddAuthor(author);
-                        int maxId = _bll.GetMaxAuthorId();
+                        _bll.CreateTransaction();
+                        if (_bll.IsDuplicateAuthor(author))
+                        {
+                            author = _bll.GetAuthor(author.Id);
+                        }
+
+                        try
+                        {
+                            task.Id = _bll.GetMaxTaskId() + 1;
+                        }
+                        catch (Exception)
+                        {
+                            task.Id = 1;
+                        }
+
                         task.Author = author;
                         task.AuthorName = author.AuthorName;
+                        author.Tasks.Add(task);
                         _bll.AddTask(task);
                         _bll.Commit();
+                        int id = _bll.GetMaxTaskId();
+                        task = _bll.GetTask(id);
+                        CreateNewTextBox(task);
                     }
                     catch (Exception)
                     {
                         _bll.RollBack();
                     }
-                    int id = _bll.GetMaxTaskId();
-                    task = _bll.GetTask(id);
-                    CreateNewTextBox(task);
                 }
                 else
                 {
@@ -215,11 +253,33 @@ namespace TodoAppPhase3
                     this.Show();
                 }
             }
-            else //update an exists task
+            else //update an exists task 
             {
-                _bll.UpdateTask(task);
-                _bll.Commit();
-                UpdateTextBox(task);
+                try
+                {
+                    _bll.CreateTransaction();
+                    var oldAuthor = _bll.GetAuthor(task.Author.Id);                    
+                    if (oldAuthor.AuthorName == author.AuthorName)
+                    {
+                        //not change author, update task as normal
+                        _bll.UpdateTask(task);
+                    }
+                    else
+                    {
+                        //update task author and task info
+                        author = _bll.GetAuthor(author.Id);
+                        task.Author = author;
+                        task.AuthorName = author.AuthorName;
+                        author.Tasks.Add(task);
+                        _bll.UpdateTask(task);
+                    }
+                    _bll.Commit();
+                    UpdateTextBox(task);
+                }
+                catch (Exception)
+                {
+                    _bll.RollBack();
+                }
                 this.Show();
             }
         }
@@ -277,6 +337,7 @@ namespace TodoAppPhase3
         {
             var task = (Task)e.Data.GetData(e.Data.GetFormats()[0]);
             task.TypeList = (int)TypeList.Doing;
+            _bll.CreateTransaction();
             _bll.UpdateTask(task);
             _bll.Commit();
             CreateNewTextBox(task);
@@ -297,7 +358,8 @@ namespace TodoAppPhase3
         private void LvDone_DragDrop(object sender, DragEventArgs e)
         {
             var task = (Task)e.Data.GetData(e.Data.GetFormats()[0]);
-            task.TypeList = (int)TypeList.Done ;
+            task.TypeList = (int)TypeList.Done;
+            _bll.CreateTransaction();
             _bll.UpdateTask(task);
             _bll.Commit();
             CreateNewTextBox(task);
@@ -319,6 +381,7 @@ namespace TodoAppPhase3
         {
             var task = (Task)e.Data.GetData(e.Data.GetFormats()[0]);
             task.TypeList = (int)TypeList.Todo;
+            _bll.CreateTransaction();
             _bll.UpdateTask(task);
             _bll.Commit();
             CreateNewTextBox(task);
@@ -339,7 +402,7 @@ namespace TodoAppPhase3
         private void TextBox_MouseDown(object sender, MouseEventArgs e)
         {
             var textBox = sender as TextBox;
-            string textBoxName = textBox.Name;
+            var textBoxName = textBox.Name;
             int textBoxId = Convert.ToInt32(textBoxName.Replace("tb", ""));
             var task = _bll.GetTask(textBoxId);
             var author = _bll.GetAuthor(task.Author.Id);

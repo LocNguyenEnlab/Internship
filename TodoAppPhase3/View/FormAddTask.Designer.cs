@@ -35,7 +35,7 @@
             this.btnOk = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.tbAuthor = new System.Windows.Forms.TextBox();
+            this.cbAuthor = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // tbTitle
@@ -43,7 +43,7 @@
             this.tbTitle.Location = new System.Drawing.Point(118, 133);
             this.tbTitle.Name = "tbTitle";
             this.tbTitle.Size = new System.Drawing.Size(284, 20);
-            this.tbTitle.TabIndex = 0;
+            this.tbTitle.TabIndex = 1;
             // 
             // tbDescription
             // 
@@ -51,7 +51,7 @@
             this.tbDescription.Multiline = true;
             this.tbDescription.Name = "tbDescription";
             this.tbDescription.Size = new System.Drawing.Size(284, 155);
-            this.tbDescription.TabIndex = 1;
+            this.tbDescription.TabIndex = 2;
             // 
             // label1
             // 
@@ -79,7 +79,7 @@
             this.btnOk.Location = new System.Drawing.Point(118, 366);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(73, 30);
-            this.btnOk.TabIndex = 6;
+            this.btnOk.TabIndex = 3;
             this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.BtnOk_Click);
@@ -90,7 +90,7 @@
             this.btnUpdate.Location = new System.Drawing.Point(325, 366);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(77, 30);
-            this.btnUpdate.TabIndex = 7;
+            this.btnUpdate.TabIndex = 4;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.BtnUpdate_Click);
@@ -105,19 +105,20 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "Author";
             // 
-            // tbAuthor
+            // cbAuthor
             // 
-            this.tbAuthor.Location = new System.Drawing.Point(118, 79);
-            this.tbAuthor.Name = "tbAuthor";
-            this.tbAuthor.Size = new System.Drawing.Size(284, 20);
-            this.tbAuthor.TabIndex = 9;
+            this.cbAuthor.FormattingEnabled = true;
+            this.cbAuthor.Location = new System.Drawing.Point(118, 78);
+            this.cbAuthor.Name = "cbAuthor";
+            this.cbAuthor.Size = new System.Drawing.Size(284, 21);
+            this.cbAuthor.TabIndex = 0;
             // 
             // AddTaskForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(539, 426);
-            this.Controls.Add(this.tbAuthor);
+            this.Controls.Add(this.cbAuthor);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnOk);
@@ -144,6 +145,6 @@
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox tbAuthor;
+        private System.Windows.Forms.ComboBox cbAuthor;
     }
 }
