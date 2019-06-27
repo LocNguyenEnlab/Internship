@@ -6,7 +6,7 @@
         {
         }
 
-        public object Error { get; set; }
+        public Errors Error { get; set; }
         public string Message { get; set; }
     }
 }

@@ -1,8 +1,9 @@
 ﻿namespace TinyCRM
 {
-    internal enum Errors
+    public enum Errors
     {
         None,
-        DuplicateCustomer
+        DuplicateCustomer,
+        UpdateFail
     }
 }

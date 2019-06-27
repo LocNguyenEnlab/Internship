@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace TinyCRM
 {
@@ -17,16 +18,16 @@ namespace TinyCRM
                 Id = 1,
                 Name = "LOC",
                 EmailHome = "loc@gmail.com",
-                PhoneHome = 0393384646,
+                PhoneHome = "0393384646",
                 EmailOffice = "loc.nguyen@enlabsoftware.com",
-                PhoneOffice = 456
+                PhoneOffice = "456"
             };
             _customers.Add(customer);
         }
 
         public Result Save(Customer customer)
         {
-            if (IsDuplicateCustomer(customer))
+            if (IsDuplicatedCustomer(customer))
                 return new Result() { Error = Errors.DuplicateCustomer, Message = "Customer already exists. Please input another one." };
 
             if (_customers.Count == 0)
@@ -47,14 +48,28 @@ namespace TinyCRM
             return _customers.FirstOrDefault(customer => customer.Id == customerId);
         }
 
-        internal bool IsDuplicateCustomer(Customer newCustomer)
+        internal bool IsDuplicatedCustomer(Customer newCustomer)
         {
             foreach(var item in _customers)
             {
                 if (item.Compare(newCustomer))
-                    return false;
+                    return true;
             }
-            return true;
+            return false;
+        }
+
+        internal Result Update(Customer editCustomer)
+        {
+            try
+            {
+                var id = _customers.FindIndex(s=>s.Id == editCustomer.Id);
+                _customers[id] = editCustomer;
+                return new Result() { Error = Errors.None, Message = "Updated!" };
+            }
+            catch (Exception)
+            {
+                return new Result() { Error = Errors.UpdateFail, Message = "Update fail!" };
+            }
         }
 
         internal void Delete(Customer customer)
@@ -69,12 +84,37 @@ namespace TinyCRM
 
         public bool IsValidEmail(string email)
         {
+            string expresion;
+            expresion = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+            if (Regex.IsMatch(email, expresion))
+            {
+                if (Regex.Replace(email, expresion, string.Empty).Length == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool IsValidPhoneNumber(string phoneNumber)
+        {
+            if (phoneNumber[0] == '+')
+            {
+                phoneNumber = phoneNumber.Remove(0, 1);
+            }
             try
             {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
+                int phone = Convert.ToInt32(phoneNumber);
+                return true;
             }
-            catch
+            catch (Exception)
             {
                 return false;
             }

@@ -5,9 +5,9 @@
         public int Id { get; set; }
         public string Name { get; set; }
         public string EmailOffice { get; set; }
-        public int PhoneOffice { get; set; }
+        public string PhoneOffice { get; set; }
         public string EmailHome { get; set; }
-        public int PhoneHome { get; set; }
+        public string PhoneHome { get; set; }
 
         /// <summary>
         /// Compare 2 customer objects based on their name, emails, phones

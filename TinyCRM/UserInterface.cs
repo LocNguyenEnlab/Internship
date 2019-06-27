@@ -16,20 +16,20 @@ namespace TinyCRM
 
         internal void ShowMainMenu()
         {
-            Console.WriteLine("====>MENU<====");
+            Console.WriteLine("\n====>MENU<====");
             Console.WriteLine("1. Add new customer");
             Console.WriteLine("2. Edit a customer");
             Console.WriteLine("3. Delete a customer");
             Console.WriteLine("4. Show customers");
             Console.WriteLine("5. Exit");
-            Console.WriteLine("Input your option: ");
+            Console.Write("\nInput your option: ");
             try
             {
                 _enteringNumber = Convert.ToInt32(Console.ReadLine());
             }
             catch (Exception)
             {
-                throw;
+                
             }
         }
 
@@ -40,6 +40,7 @@ namespace TinyCRM
 
         internal void ShowEnteringCustomer()
         {
+            Console.WriteLine("\n===>Enter customer info:");
             _service = new CustomerService();
             _customer = new Customer();
             Console.Write("Name: ");
@@ -60,13 +61,13 @@ namespace TinyCRM
             }
             while(true)
             {
-                try
+                Console.Write("Phone Office: ");
+                _customer.PhoneOffice = Console.ReadLine();
+                if (_service.IsValidPhoneNumber(_customer.PhoneOffice))
                 {
-                    Console.Write("Phone Office: ");
-                    _customer.PhoneOffice = Convert.ToInt32(Console.ReadLine());
                     break;
                 }
-                catch
+                else
                 {
                     Console.WriteLine("Invalid phone number, please input again");
                 }
@@ -87,13 +88,13 @@ namespace TinyCRM
             
             while(true)
             {
-                try
+                Console.Write("Phone Home: ");
+                _customer.PhoneHome = Console.ReadLine();
+                if (_service.IsValidPhoneNumber(_customer.PhoneHome))
                 {
-                    Console.Write("Phone Home: ");
-                    _customer.PhoneHome = Convert.ToInt32(Console.ReadLine());
                     break;
                 }
-                catch
+                else
                 {
                     Console.WriteLine("Invalid phone number, please input again");
                 }
@@ -117,14 +118,15 @@ namespace TinyCRM
             return false;
         }
 
-        internal void ShowCustomer(Customer _customer)
+        internal void ShowCustomer(Customer customer)
         {
-            Console.WriteLine("Id: {0}", _customer.Id);
-            Console.WriteLine("Name: {0}", _customer.Name);
-            Console.WriteLine("Email Office: {0}", _customer.EmailOffice);
-            Console.WriteLine("Phone Office: {0}", _customer.PhoneOffice);
-            Console.WriteLine("Email Home: {0}", _customer.EmailHome);
-            Console.WriteLine("Phone Home: {0}", _customer.PhoneHome);
+            Console.WriteLine();
+            Console.WriteLine("Id: {0}", customer.Id);
+            Console.WriteLine("Name: {0}", customer.Name);
+            Console.WriteLine("Email Office: {0}", customer.EmailOffice);
+            Console.WriteLine("Phone Office: {0}", customer.PhoneOffice);
+            Console.WriteLine("Email Home: {0}", customer.EmailHome);
+            Console.WriteLine("Phone Home: {0}", customer.PhoneHome);
         }
 
         internal void Inform(string v)
@@ -134,24 +136,43 @@ namespace TinyCRM
 
         internal void ShowOptionViewCustomer()
         {
-            Console.WriteLine("====>Menu show customer<====");
+            Console.WriteLine("\n====>Menu show customer<====");
             Console.WriteLine("41. Show all customers");
             Console.WriteLine("42. Show a customer");
-            Console.WriteLine("Your selection: ");
+            Console.Write("\nYour selection: ");
             _enteringNumber = Convert.ToInt32(Console.ReadLine());
         }
 
         internal void ShowEnteringId(string inform)
         {
             Console.Write(inform);
-            _enteringNumber = Convert.ToInt32(Console.ReadLine());
+            while(true)
+            {
+                try
+                {
+                    _enteringNumber = Convert.ToInt32(Console.ReadLine());
+                    break;
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("\nInvalid Id Type! Please input again!");
+                    Console.Write("\nInput id to edit customer: ");
+                }
+            }
         }
 
         internal void ShowAllCustomers(List<Customer> listCustomer)
         {            
-            foreach(var item in listCustomer)
+            if (listCustomer.Count != 0)
             {
-                ShowCustomer(item);
+                foreach (var item in listCustomer)
+                {
+                    ShowCustomer(item);
+                }
+            }
+            else
+            {
+                Console.WriteLine("\nList customer is empty!");
             }
         }
     }
