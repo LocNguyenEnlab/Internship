@@ -42,9 +42,21 @@ namespace TinyCRM
         {
             Console.WriteLine("\n===>Enter customer info:");
             _service = new CustomerService();
-            _customer = new Customer();
-            Console.Write("Name: ");
-            _customer.Name = Console.ReadLine();
+            _customer = new Customer();            
+            
+            while(true)
+            {
+                Console.Write("Name: ");
+                _customer.Name = Console.ReadLine();
+                if (_customer.Name.Replace(" ", "") != "")
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Name is empry! Please input name again!");
+                }
+            }
             
             while(true)
             {

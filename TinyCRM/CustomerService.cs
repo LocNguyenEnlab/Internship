@@ -84,40 +84,14 @@ namespace TinyCRM
 
         public bool IsValidEmail(string email)
         {
-            string expresion;
-            expresion = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
-            if (Regex.IsMatch(email, expresion))
-            {
-                if (Regex.Replace(email, expresion, string.Empty).Length == 0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
+            string expression = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+            return Regex.Match(email, expression).Success;
         }
 
         public bool IsValidPhoneNumber(string phoneNumber)
         {
-            if (phoneNumber[0] == '+')
-            {
-                phoneNumber = phoneNumber.Remove(0, 1);
-            }
-            try
-            {
-                int phone = Convert.ToInt32(phoneNumber);
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            string expression = @"^\+?(\d[\d-. ]+)?(\(\+?[\d-. ]+\))?[\d-. ]+\d$";
+            return Regex.Match(phoneNumber, expression).Success;
         }
     }
 }

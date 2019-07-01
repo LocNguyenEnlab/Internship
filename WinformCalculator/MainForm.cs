@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace WinformCalculator
@@ -11,7 +12,8 @@ namespace WinformCalculator
         private StringBuilder _numbers;
         private StringBuilder _result;
         private StringBuilder _operator;
-
+        private CalculateService _service;
+        private string _regexExpressions;
 
         public MainForm()
         {
@@ -20,6 +22,8 @@ namespace WinformCalculator
             _numbers = new StringBuilder();
             _result = new StringBuilder();
             _operator = new StringBuilder();
+            _service = new CalculateService();
+            _regexExpressions = @"(\d)+[\+\-\*\/](\d)+";
         }
 
         #region methods
@@ -29,56 +33,21 @@ namespace WinformCalculator
             tbScreen.Text += _result.ToString();
         }
 
-        public void Calculate()
+        public void Reset()
         {
-            if (_numbers.Length == 0)
-            {
-                MessageBox.Show("Invalid expression", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                _expressions.Clear();
-                _result.Clear();
-                Show();
-            }
-            else
-            {
-                if (_result.Length == 0)
-                {
-                    _result.Append(_numbers);
-                }
-                else
-                {
-                    double x = Convert.ToDouble(_result.ToString());
-                    double y = Convert.ToDouble(_numbers.ToString());
-                    if (_operator.ToString() == "+")
-                    {
-                        _result.Clear();
-                        _result.Append((x + y).ToString());
-                    }
-                    else if (_operator.ToString() == "-")
-                    {
-                        _result.Clear();
-                        _result.Append((x - y).ToString());
-                    }
-                    else if (_operator.ToString() == "*")
-                    {
-                        _result.Clear();
-                        _result.Append((x * y).ToString());
-                    }
-                    else if (_operator.ToString() == "/")
-                    {
-                        _result.Clear();
-                        _result.Append((x / y).ToString());
-                    }
-                    
-                }
-                _numbers.Clear();
-                _operator.Clear();
-            }
+            _expressions.Clear();
+            _numbers.Clear();
+            _result.Clear();
         }
         #endregion
 
         #region events
         private void Btn1_Click(object sender, EventArgs e)
         {
+            if (_operator.Length == 0 && Regex.Match(_expressions.ToString(), _regexExpressions).Success)
+            {
+                Reset();
+            }
             _expressions.Append("1");
             _numbers.Append("1");
             Show();
@@ -86,6 +55,10 @@ namespace WinformCalculator
 
         private void Btn2_Click(object sender, EventArgs e)
         {
+            if (_operator.Length == 0 && Regex.Match(_expressions.ToString(), _regexExpressions).Success)
+            {
+                Reset();
+            }
             _expressions.Append("2");
             _numbers.Append("2");
             Show();
@@ -93,6 +66,10 @@ namespace WinformCalculator
 
         private void Btn3_Click(object sender, EventArgs e)
         {
+            if (_operator.Length == 0 && Regex.Match(_expressions.ToString(), _regexExpressions).Success)
+            {
+                Reset();
+            }
             _expressions.Append("3");
             _numbers.Append("3");
             Show();
@@ -100,6 +77,10 @@ namespace WinformCalculator
 
         private void Btn4_Click(object sender, EventArgs e)
         {
+            if (_operator.Length == 0 && Regex.Match(_expressions.ToString(), _regexExpressions).Success)
+            {
+                Reset();
+            }
             _expressions.Append("4");
             _numbers.Append("4");
             Show();
@@ -107,6 +88,10 @@ namespace WinformCalculator
 
         private void Btn5_Click(object sender, EventArgs e)
         {
+            if (_operator.Length == 0 && Regex.Match(_expressions.ToString(), _regexExpressions).Success)
+            {
+                Reset();
+            }
             _expressions.Append("5");
             _numbers.Append("5");
             Show();
@@ -114,6 +99,10 @@ namespace WinformCalculator
 
         private void Btn6_Click(object sender, EventArgs e)
         {
+            if (_operator.Length == 0 && Regex.Match(_expressions.ToString(), _regexExpressions).Success)
+            {
+                Reset();
+            }
             _expressions.Append("6");
             _numbers.Append("6");
             Show();
@@ -121,6 +110,10 @@ namespace WinformCalculator
 
         private void Btn7_Click(object sender, EventArgs e)
         {
+            if (_operator.Length == 0 && Regex.Match(_expressions.ToString(), _regexExpressions).Success)
+            {
+                Reset();
+            }
             _expressions.Append("7");
             _numbers.Append("7");
             Show();
@@ -128,6 +121,10 @@ namespace WinformCalculator
 
         private void Btn8_Click(object sender, EventArgs e)
         {
+            if (_operator.Length == 0 && Regex.Match(_expressions.ToString(), _regexExpressions).Success)
+            {
+                Reset();
+            }
             _expressions.Append("8");
             _numbers.Append("8");
             Show();
@@ -135,6 +132,10 @@ namespace WinformCalculator
 
         private void Btn9_Click(object sender, EventArgs e)
         {
+            if (_operator.Length == 0 && Regex.Match(_expressions.ToString(), _regexExpressions).Success)
+            {
+                Reset();
+            }
             _expressions.Append("9");
             _numbers.Append("9");
             Show();
@@ -142,6 +143,10 @@ namespace WinformCalculator
 
         private void Btn0_Click(object sender, EventArgs e)
         {
+            if (_operator.Length == 0 && Regex.Match(_expressions.ToString(), _regexExpressions).Success)
+            {
+                Reset();
+            }
             _expressions.Append("0");
             _numbers.Append("0");
             Show();
@@ -163,9 +168,7 @@ namespace WinformCalculator
 
         private void BtnReset_Click(object sender, EventArgs e)
         {
-            _expressions.Clear();
-            _numbers.Clear();
-            _result.Clear();
+            Reset();
             Show();
         }
 
@@ -177,7 +180,7 @@ namespace WinformCalculator
             }
             else 
             {                
-                Calculate();
+                _service.Calculate(_operator, _numbers, _expressions, _result);
                 _expressions.Clear();
                 _expressions.Append(_result);
                 _expressions.Append("/");
@@ -193,8 +196,8 @@ namespace WinformCalculator
                 MessageBox.Show("Invalid expression", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
-            {                
-                Calculate();
+            {
+                _service.Calculate(_operator, _numbers, _expressions, _result);
                 _expressions.Clear();
                 _expressions.Append(_result);
                 _expressions.Append("*");
@@ -210,8 +213,8 @@ namespace WinformCalculator
                 MessageBox.Show("Invalid expression", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
-            {                
-                Calculate();
+            {
+                _service.Calculate(_operator, _numbers, _expressions, _result);
                 _expressions.Clear();
                 _expressions.Append(_result);
                 _expressions.Append("-");
@@ -227,8 +230,8 @@ namespace WinformCalculator
                 MessageBox.Show("Invalid expression", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
-            {                
-                Calculate();
+            {
+                _service.Calculate(_operator, _numbers, _expressions, _result);
                 _expressions.Clear();
                 _expressions.Append(_result);
                 _expressions.Append("+");
@@ -239,7 +242,7 @@ namespace WinformCalculator
 
         private void BtnEqual_Click(object sender, EventArgs e)
         {
-            Calculate();
+            _service.Calculate(_operator, _numbers, _expressions, _result);
             _numbers.Clear();
             _numbers.Append(_result);
             Show();

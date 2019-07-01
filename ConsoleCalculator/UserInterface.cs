@@ -42,14 +42,15 @@ namespace ConsoleCalculator
         internal void ShowInputNumbers()
         {
             _listNumbers = new List<double>();
-            Console.Write("Enter numbers you want to calculate, Enter any other characters numbers to finish: ");
+            Console.WriteLine("Enter numbers you want to calculate, Enter any non-numeric characters to finish: ");
             while(true)
             {
                 try
                 {
                     double x = Convert.ToDouble(Console.ReadLine());
                     _listNumbers.Add(x);
-                } catch(Exception)
+                }
+                catch (Exception)
                 {
                     break;
                 }
