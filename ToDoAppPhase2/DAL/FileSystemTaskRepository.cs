@@ -13,7 +13,7 @@ namespace ToDoAppPhase1.DAL
 
         public FileSystemTaskRepository()
         {
-            _path = @"C:\FileSystemTodoApp\TodoAppPhase2.txt";
+            _path = @"TodoAppPhase2.txt";
             if (!File.Exists(_path))
             {
                 var file = File.Create(_path);
