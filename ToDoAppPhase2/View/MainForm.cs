@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using ToDoAppPhase1.BLL;
-using System.IO;
 using System.Linq;
 
 namespace ToDoAppPhase2
@@ -17,7 +16,7 @@ namespace ToDoAppPhase2
         private List<TextBox> _listTbTodo;
         private List<TextBox> _listTbDoing;
         private List<TextBox> _listTbDone;
-        private int _dataOptions; //0: sql server, 1: file sytem
+        private DataOptions _dataOptions;
         private BLLSqlTask _bllSql;
         private BLLFileSystemTask _bllFileSystem;
 
@@ -36,7 +35,7 @@ namespace ToDoAppPhase2
 
         private void ShowData()
         {
-            if (_dataOptions == (int)DataOptions.SqlServer)
+            if (_dataOptions == DataOptions.SqlServer)
             {
                 _listTask = _bllSql.GetAllTask();
             }
@@ -50,15 +49,15 @@ namespace ToDoAppPhase2
             }
         }
 
-        private void CreateNewTextBox(Task t)
+        private void CreateNewTextBox(Task task)
         {
             var tb = new TextBox();
 
-            if (t.TypeList == 0)
+            if (task.TypeList == (int)TypeList.Todo)
             {
                 tb.Location = new Point(0, _pointYTodo);
-                tb.Text = t.Title;
-                tb.Name = "tb" + (t.Id);
+                tb.Text = task.Title;
+                tb.Name = "tb" + (task.Id);
                 tb.ReadOnly = true;
                 tb.Size = new Size(325, 20);
                 _listTbTodo.Add(tb);
@@ -67,11 +66,11 @@ namespace ToDoAppPhase2
                 lvToDo.Controls.Add(tb);
                 _pointYTodo += 25;
             }
-            else if (t.TypeList == 1)
+            else if (task.TypeList == (int)TypeList.Doing)
             {
                 tb.Location = new Point(0, _pointYDoing);
-                tb.Text = t.Title;
-                tb.Name = "tb" + (t.Id);
+                tb.Text = task.Title;
+                tb.Name = "tb" + (task.Id);
                 tb.ReadOnly = true;
                 tb.Size = new Size(325, 20);
                 _listTbDoing.Add(tb);
@@ -80,11 +79,11 @@ namespace ToDoAppPhase2
                 lvDoing.Controls.Add(tb);
                 _pointYDoing += 25;
             }
-            else if (t.TypeList == 2)
+            else if (task.TypeList == (int)TypeList.Done)
             {
                 tb.Location = new Point(0, _pointYDone);
-                tb.Text = t.Title;
-                tb.Name = "tb" + (t.Id);
+                tb.Text = task.Title;
+                tb.Name = "tb" + (task.Id);
                 tb.ReadOnly = true;
                 tb.Size = new Size(325, 20);
                 _listTbDone.Add(tb);
@@ -119,7 +118,7 @@ namespace ToDoAppPhase2
 
         private void RemoveTextBoxFromListView(TextBox textBox, ListView listView, List<TextBox> textBoxList, ref int pointY)
         {
-            int textBoxIndex = FindTextBoxIndex(textBoxList, textBox);
+            var textBoxIndex = FindTextBoxIndex(textBoxList, textBox);
 
             if (textBoxIndex == textBoxList.Count - 1)
             {
@@ -156,7 +155,7 @@ namespace ToDoAppPhase2
             {
                 var textBox = FindTextbox("tb" + taskId, _listTbTodo);
                 RemoveTextBoxFromListView(textBox, lvToDo, _listTbTodo, ref _pointYTodo);
-                if (_dataOptions == (int)DataOptions.SqlServer)
+                if (_dataOptions == DataOptions.SqlServer)
                 {
                     _bllSql.DeleteTask(taskId);
                 }
@@ -169,7 +168,7 @@ namespace ToDoAppPhase2
             {
                 var textBox = FindTextbox("tb" + taskId, _listTbDoing);
                 RemoveTextBoxFromListView(textBox, lvDoing, _listTbDoing, ref _pointYDoing);
-                if (_dataOptions == (int)DataOptions.SqlServer)
+                if (_dataOptions == DataOptions.SqlServer)
                 {
                     _bllSql.DeleteTask(taskId);
                 }
@@ -181,7 +180,7 @@ namespace ToDoAppPhase2
             else if (IsTextBoxInList("tb" + taskId, _listTbDone)) {
                 var textBox = FindTextbox("tb" + taskId, _listTbDone);
                 RemoveTextBoxFromListView(textBox, lvDone, _listTbDone, ref _pointYDone);
-                if (_dataOptions == (int)DataOptions.SqlServer)
+                if (_dataOptions == DataOptions.SqlServer)
                 {
                     _bllSql.DeleteTask(taskId);
                 }
@@ -199,7 +198,7 @@ namespace ToDoAppPhase2
             MessageBoxManager.Cancel = "Close";
             MessageBoxManager.Register();
 
-            DialogResult dialogResult = MessageBox.Show(string.Format("Title: {0}\nDescription: {1}\nTime create: {2}", 
+            var dialogResult = MessageBox.Show(string.Format("Title: {0}\nDescription: {1}\nTime create: {2}", 
                 task.Title, task.Description, Convert.ToDateTime(task.TimeCreate)),
                 "Task Detail", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
             MessageBoxManager.Unregister();
@@ -210,7 +209,7 @@ namespace ToDoAppPhase2
             }
             else if (dialogResult == DialogResult.No)
             {                
-                DialogResult confirmResult = MessageBox.Show("Do you want to delete this task?", "Warning", 
+                var confirmResult = MessageBox.Show("Do you want to delete this task?", "Warning", 
                     MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (confirmResult == DialogResult.Yes)
                 {
@@ -234,7 +233,7 @@ namespace ToDoAppPhase2
         {
             if (task.Id == -1) //add new task
             {
-                if (_dataOptions == (int)DataOptions.SqlServer)
+                if (_dataOptions == DataOptions.SqlServer)
                 {
                     if (!_bllSql.IsDuplicateTask(task))
                     {
@@ -268,7 +267,7 @@ namespace ToDoAppPhase2
             } 
             else //update an exists task
             {
-                if (_dataOptions == (int)DataOptions.SqlServer)
+                if (_dataOptions == DataOptions.SqlServer)
                 {
                     _bllSql.UpdateTask(task);
                 } 
@@ -302,7 +301,7 @@ namespace ToDoAppPhase2
 
         private void LvDoing_DragEnter(object sender, DragEventArgs e)
         {
-            int textBoxId = ((Task)e.Data.GetData(e.Data.GetFormats()[0])).Id;
+            var textBoxId = ((Task)e.Data.GetData(e.Data.GetFormats()[0])).Id;
 
             if (!IsTextBoxInList("tb" + textBoxId, _listTbDoing))
             {
@@ -322,7 +321,7 @@ namespace ToDoAppPhase2
 
         private void LvTodo_DragEnter(object sender, DragEventArgs e)
         {
-            int textBoxId = ((Task)e.Data.GetData(e.Data.GetFormats()[0])).Id;
+            var textBoxId = ((Task)e.Data.GetData(e.Data.GetFormats()[0])).Id;
             
             if(!IsTextBoxInList("tb" + textBoxId, _listTbTodo))
             {
@@ -334,7 +333,7 @@ namespace ToDoAppPhase2
         {
             var task = (Task)e.Data.GetData(e.Data.GetFormats()[0]);
             task.TypeList = (int)TypeList.Doing;
-            if (_dataOptions == (int)DataOptions.SqlServer)
+            if (_dataOptions == DataOptions.SqlServer)
             {
                 _bllSql.UpdateTask(task);
             } 
@@ -361,7 +360,7 @@ namespace ToDoAppPhase2
         {
             var task = (Task)e.Data.GetData(e.Data.GetFormats()[0]);
             task.TypeList = (int)TypeList.Done;
-            if (_dataOptions == (int)DataOptions.SqlServer)
+            if (_dataOptions == DataOptions.SqlServer)
             {
                 _bllSql.UpdateTask(task);
             }
@@ -388,7 +387,7 @@ namespace ToDoAppPhase2
         {
             var task = (Task)e.Data.GetData(e.Data.GetFormats()[0]);
             task.TypeList = 0;
-            if (_dataOptions == (int)DataOptions.SqlServer)
+            if (_dataOptions == DataOptions.SqlServer)
             {
                 _bllSql.UpdateTask(task);
             }
@@ -414,11 +413,11 @@ namespace ToDoAppPhase2
         private void TextBox_MouseDown(object sender, MouseEventArgs e)
         {
             var textBox = sender as TextBox;
-            string textBoxName = textBox.Name;
-            int textBoxId = Convert.ToInt32(textBoxName.Replace("tb", ""));
+            var textBoxName = textBox.Name;
+            var textBoxId = Convert.ToInt32(textBoxName.Replace("tb", ""));
             Task t;
 
-            if (_dataOptions == (int)DataOptions.SqlServer)
+            if (_dataOptions == DataOptions.SqlServer)
             {
                 t = _bllSql.GetTask(textBoxId);
             } 
@@ -442,18 +441,18 @@ namespace ToDoAppPhase2
             MessageBoxManager.Yes = "Sql server";
             MessageBoxManager.No = "File system";
             MessageBoxManager.Register();
-            DialogResult result = MessageBox.Show("Do you want to use sql server or file system?", "Inform", 
+            var result = MessageBox.Show("Do you want to use sql server or file system?", "Inform", 
                 MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
             MessageBoxManager.Unregister();
             if (result == DialogResult.Yes)
             {
-                _dataOptions = (int)DataOptions.SqlServer;
+                _dataOptions = DataOptions.SqlServer;
                 ShowData();
             } 
             else if (result == DialogResult.No)
             {
-                _dataOptions = (int)DataOptions.FileSystem;
+                _dataOptions = DataOptions.FileSystem;
                 ShowData();                
             } 
         }

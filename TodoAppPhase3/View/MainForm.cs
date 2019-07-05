@@ -179,7 +179,7 @@ namespace TodoAppPhase3
             MessageBoxManager.Cancel = "Close";
             MessageBoxManager.Register();
 
-            DialogResult dialogResult = MessageBox.Show(string.Format("Title: {0}\nDescription: {1}\nTime create: {2}" +
+            var dialogResult = MessageBox.Show(string.Format("Title: {0}\nDescription: {1}\nTime create: {2}" +
                 "\nAuthor: {3}", task.Title, task.Description, Convert.ToDateTime(task.TimeCreate), author.AuthorName),
                 "Task Detail", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
             MessageBoxManager.Unregister();
@@ -190,7 +190,7 @@ namespace TodoAppPhase3
             }
             else if (dialogResult == DialogResult.No)
             {
-                DialogResult confirmResult = MessageBox.Show("Do you want to delete this task?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                var confirmResult = MessageBox.Show("Do you want to delete this task?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (confirmResult == DialogResult.Yes)
                 {
                     DeleteTask(task.Id);
@@ -305,7 +305,7 @@ namespace TodoAppPhase3
 
         private void LvDoing_DragEnter(object sender, DragEventArgs e)
         {
-            int textBoxId = ((Task)e.Data.GetData(e.Data.GetFormats()[0])).Id;
+            var textBoxId = ((Task)e.Data.GetData(e.Data.GetFormats()[0])).Id;
 
             if (!IsTextBoxInList("tb" + textBoxId, _listTbDoing))
             {
@@ -325,7 +325,7 @@ namespace TodoAppPhase3
 
         private void LvTodo_DragEnter(object sender, DragEventArgs e)
         {
-            int textBoxId = ((Task)e.Data.GetData(e.Data.GetFormats()[0])).Id;
+            var textBoxId = ((Task)e.Data.GetData(e.Data.GetFormats()[0])).Id;
 
             if (!IsTextBoxInList("tb" + textBoxId, _listTbTodo))
             {
@@ -403,7 +403,7 @@ namespace TodoAppPhase3
         {
             var textBox = sender as TextBox;
             var textBoxName = textBox.Name;
-            int textBoxId = Convert.ToInt32(textBoxName.Replace("tb", ""));
+            var textBoxId = Convert.ToInt32(textBoxName.Replace("tb", ""));
             var task = _bll.GetTask(textBoxId);
             var author = _bll.GetAuthor(task.Author.Id);
 

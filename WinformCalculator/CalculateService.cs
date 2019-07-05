@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WinformCalculator
@@ -31,28 +28,47 @@ namespace WinformCalculator
                     if (operators.ToString() == "+")
                     {
                         result.Clear();
-                        result.Append((x + y).ToString());
+                        result.Append(Add(x, y));
                     }
                     else if (operators.ToString() == "-")
                     {
                         result.Clear();
-                        result.Append((x - y).ToString());
+                        result.Append(Sub(x, y));
                     }
                     else if (operators.ToString() == "*")
                     {
                         result.Clear();
-                        result.Append((x * y).ToString());
+                        result.Append(Mul(x, y));
                     }
                     else if (operators.ToString() == "/")
                     {
                         result.Clear();
-                        result.Append((x / y).ToString());
+                        result.Append(Div(x, y));
                     }
-
                 }
                 numbers.Clear();
                 operators.Clear();
             }
+        }
+
+        public string Add(double x, double y)
+        {
+            return String.Format("{0:0.00}", (x + y));
+        }
+
+        public string Sub(double x, double y)
+        {
+            return String.Format("{0:0.00}", (x - y));
+        }
+
+        public string Mul(double x, double y)
+        {
+            return String.Format("{0:0.00}", (x * y));
+        }
+
+        public string Div(double x, double y)
+        {
+            return String.Format("{0:0.00}", (x / y));
         }
     }
 }

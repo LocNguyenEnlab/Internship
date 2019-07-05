@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -23,7 +22,7 @@ namespace WinformCalculator
             _result = new StringBuilder();
             _operator = new StringBuilder();
             _service = new CalculateService();
-            _regexExpressions = @"(\d)+[\+\-\*\/](\d)+";
+            _regexExpressions = @"(\d)+[\+\-\*\/](\d)+";  //numbers_operator_numbers
         }
 
         #region methods
@@ -36,6 +35,7 @@ namespace WinformCalculator
         public void Reset()
         {
             _expressions.Clear();
+            _operator.Clear();
             _numbers.Clear();
             _result.Clear();
         }
@@ -178,13 +178,31 @@ namespace WinformCalculator
             {
                 MessageBox.Show("Invalid expression", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else 
-            {                
-                _service.Calculate(_operator, _numbers, _expressions, _result);
-                _expressions.Clear();
-                _expressions.Append(_result);
-                _expressions.Append("/");
-                _operator.Append("/");
+            else
+            {
+                if (_operator.Length != 0 && !Regex.Match(_expressions.ToString(), _regexExpressions).Success)
+                {
+                    _operator.Clear();
+                    _operator.Append("/");
+                    _expressions.Length--;
+                    _expressions.Append("/");
+                }
+                else
+                {
+                    _service.Calculate(_operator, _numbers, _expressions, _result);
+                    if (Double.IsInfinity(Convert.ToDouble(_result.ToString())))
+                    {
+                        MessageBox.Show("Can not calculate with infinity number!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Reset();
+                    }
+                    else
+                    {
+                        _expressions.Clear();
+                        _expressions.Append(_result);
+                        _expressions.Append("/");
+                        _operator.Append("/");
+                    }
+                }
                 Show();
             }
         }
@@ -197,11 +215,29 @@ namespace WinformCalculator
             }
             else
             {
-                _service.Calculate(_operator, _numbers, _expressions, _result);
-                _expressions.Clear();
-                _expressions.Append(_result);
-                _expressions.Append("*");
-                _operator.Append("*");
+                if (_operator.Length != 0 && !Regex.Match(_expressions.ToString(), _regexExpressions).Success)
+                {
+                    _operator.Clear();
+                    _operator.Append("*");
+                    _expressions.Length--;
+                    _expressions.Append("*");
+                }
+                else
+                {
+                    _service.Calculate(_operator, _numbers, _expressions, _result);
+                    if (Double.IsInfinity(Convert.ToDouble(_result.ToString())))
+                    {
+                        MessageBox.Show("Can not calculate with infinity number!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Reset();
+                    }
+                    else
+                    {
+                        _expressions.Clear();
+                        _expressions.Append(_result);
+                        _expressions.Append("*");
+                        _operator.Append("*");
+                    }
+                }
                 Show();
             }
         }
@@ -210,15 +246,35 @@ namespace WinformCalculator
         {
             if (_expressions.Length == 0)
             {
-                MessageBox.Show("Invalid expression", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _numbers.Append("-");
+                _expressions.Append("-");
+                Show();
             }
             else
             {
-                _service.Calculate(_operator, _numbers, _expressions, _result);
-                _expressions.Clear();
-                _expressions.Append(_result);
-                _expressions.Append("-");
-                _operator.Append("-");
+                if (_operator.Length != 0 && !Regex.Match(_expressions.ToString(), _regexExpressions).Success)
+                {
+                    _operator.Clear();
+                    _operator.Append("-");
+                    _expressions.Length--;
+                    _expressions.Append("-");
+                }
+                else
+                {
+                    _service.Calculate(_operator, _numbers, _expressions, _result);
+                    if (Double.IsInfinity(Convert.ToDouble(_result.ToString())))
+                    {
+                        MessageBox.Show("Can not calculate with infinity number!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Reset();
+                    }
+                    else
+                    {
+                        _expressions.Clear();
+                        _expressions.Append(_result);
+                        _expressions.Append("-");
+                        _operator.Append("-");
+                    }
+                }
                 Show();
             }
         }
@@ -231,11 +287,29 @@ namespace WinformCalculator
             }
             else
             {
-                _service.Calculate(_operator, _numbers, _expressions, _result);
-                _expressions.Clear();
-                _expressions.Append(_result);
-                _expressions.Append("+");
-                _operator.Append("+");
+                if (_operator.Length != 0 && !Regex.Match(_expressions.ToString(), _regexExpressions).Success)
+                {
+                    _operator.Clear();
+                    _operator.Append("+");
+                    _expressions.Length--;
+                    _expressions.Append("+");
+                }
+                else
+                {
+                    _service.Calculate(_operator, _numbers, _expressions, _result);
+                    if (Double.IsInfinity(Convert.ToDouble(_result.ToString())))
+                    {
+                        MessageBox.Show("Can not calculate with infinity number!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Reset();
+                    }
+                    else
+                    {
+                        _expressions.Clear();
+                        _expressions.Append(_result);
+                        _expressions.Append("+");
+                        _operator.Append("+");
+                    }
+                }
                 Show();
             }
         }

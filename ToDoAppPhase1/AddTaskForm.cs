@@ -28,13 +28,14 @@ namespace ToDoAppPhase1
 
         private void BtnOk_Click(object sender, EventArgs e)
         {
-            Task task = new Task
+            var task = new Task
             {
                 Id = -1,
                 Title = tbTitle.Text,
                 Description = tbDescription.Text,
                 TimeCreate = Convert.ToDateTime(DateTime.Now)
             };
+
             if(!task.IsEmpty())
             {
                 passData(task);

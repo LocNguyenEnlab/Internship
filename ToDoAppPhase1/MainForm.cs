@@ -85,7 +85,7 @@ namespace ToDoAppPhase1
 
         private void RemoveTextBox(TextBox textBox, ListView listView, List<TextBox> textBoxList, ref int pointY)
         {
-            int textBoxIndex = FindTextBoxIndex(textBoxList, textBox);
+            var textBoxIndex = FindTextBoxIndex(textBoxList, textBox);
 
             if (textBoxIndex == textBoxList.Count - 1)
             {
@@ -118,7 +118,7 @@ namespace ToDoAppPhase1
 
         private void DeleteTask(Task task)
         {
-            int textBoxId = task.Id;
+            var textBoxId = task.Id;
             if (IsTextBoxInList("tb" + textBoxId, _listTbTodo))
             {
                 var textBox = FindTextbox("tb" + textBoxId, _listTbTodo);
@@ -144,7 +144,7 @@ namespace ToDoAppPhase1
             MessageBoxManager.Cancel = "Close";
             MessageBoxManager.Register();
 
-            DialogResult dialogResult = MessageBox.Show(string.Format("Title: {0}\nDescription: {1}\nTime create: {2}",
+            var dialogResult = MessageBox.Show(string.Format("Title: {0}\nDescription: {1}\nTime create: {2}",
                 task.Title, task.Description, Convert.ToDateTime(task.TimeCreate)),
                 "Task Detail", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
 
@@ -155,7 +155,7 @@ namespace ToDoAppPhase1
             }
             else if (dialogResult == DialogResult.No)
             {
-                DialogResult confirmResult = MessageBox.Show("Do you want to delete this task?", "Warning",
+                var confirmResult = MessageBox.Show("Do you want to delete this task?", "Warning",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (confirmResult == DialogResult.Yes)
                 {
@@ -224,7 +224,7 @@ namespace ToDoAppPhase1
 
         private void LvDoing_DragEnter(object sender, DragEventArgs e)
         {
-            int textBoxId = ((Task)e.Data.GetData(e.Data.GetFormats()[0])).Id;
+            var textBoxId = ((Task)e.Data.GetData(e.Data.GetFormats()[0])).Id;
 
             if (!IsTextBoxInList("tb" + textBoxId, _listTbDoing))
             {
@@ -234,7 +234,7 @@ namespace ToDoAppPhase1
 
         private void LvDone_DragEnter(object sender, DragEventArgs e)
         {
-            int textBoxId = ((Task)e.Data.GetData(e.Data.GetFormats()[0])).Id;
+            var textBoxId = ((Task)e.Data.GetData(e.Data.GetFormats()[0])).Id;
 
             if (!IsTextBoxInList("tb" + textBoxId, _listTbDone))
             {
@@ -244,7 +244,7 @@ namespace ToDoAppPhase1
 
         private void LvTodo_DragEnter(object sender, DragEventArgs e)
         {
-            int textBoxId = ((Task)e.Data.GetData(e.Data.GetFormats()[0])).Id;
+            var textBoxId = ((Task)e.Data.GetData(e.Data.GetFormats()[0])).Id;
 
             if (!IsTextBoxInList("tb" + textBoxId, _listTbTodo))
             {
@@ -312,8 +312,8 @@ namespace ToDoAppPhase1
         private void TextBox_MouseDown(object sender, MouseEventArgs e)
         {
             var textBox = sender as TextBox;
-            string title = textBox.Text;
-            int taskIndex = FindIndexTask(_listTask, title);
+            var title = textBox.Text;
+            var taskIndex = FindIndexTask(_listTask, title);
 
             if (e.Button == MouseButtons.Left && e.Clicks == 1)
             {
