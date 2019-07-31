@@ -12,12 +12,6 @@ namespace TodoAppPhase3.DAL
     {
         private DataContext _context;
         private DbSet<T> _table;
-
-        public GenericRepository()
-        {
-            _context = new DataContext();
-            _table = _context.Set<T>();
-        }
             
         public GenericRepository(DataContext context)
         {
@@ -30,7 +24,7 @@ namespace TodoAppPhase3.DAL
             return _table.ToList();
         }
 
-        public T GetById(object id)
+        public T Get(int id)
         {
             return _table.Find(id);
         }

@@ -9,7 +9,7 @@ namespace TodoAppPhase3.DAL
     public interface IGenericRepository<T> where T : class
     {
         IEnumerable<T> GetAll();
-        T GetById(object id);
+        T Get(int id);
         void Add(T obj);
         void Update(T obj);
         void Delete(object id);

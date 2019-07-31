@@ -10,8 +10,8 @@ namespace TodoAppPhase3.DAL
     public class UnitOfWork
     {
         private DataContext _context;
-        private GenericRepository<Task> _taskRepository;
-        private GenericRepository<Author> _authorRepository;
+        private IGenericRepository<Task> _taskRepository;
+        private IGenericRepository<Author> _authorRepository;
         private DbContextTransaction _transaction;
 
         public UnitOfWork(DataContext context)
@@ -19,7 +19,7 @@ namespace TodoAppPhase3.DAL
             _context = context;
         }
 
-        public GenericRepository<Task> TaskRepository
+        public IGenericRepository<Task> TaskRepository
         {
             get
             {
@@ -31,7 +31,7 @@ namespace TodoAppPhase3.DAL
             }
         }
 
-        public GenericRepository<Author> AuthorRepository
+        public IGenericRepository<Author> AuthorRepository
         {
             get
             {

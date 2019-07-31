@@ -58,7 +58,7 @@ namespace TodoAppPhase3.BLL
 
         internal Task GetTask(int taskId)
         {
-            return _unitOfWork.TaskRepository.GetById(taskId);
+            return _unitOfWork.TaskRepository.Get(taskId);
         }
 
         internal void UpdateTask(Task task)
@@ -106,6 +106,11 @@ namespace TodoAppPhase3.BLL
             return false;
         }
 
+        internal Author GetAuthor(int id)
+        {
+            return _unitOfWork.AuthorRepository.Get(id);
+        }
+
         #endregion
 
         internal void CreateTransaction()
@@ -121,11 +126,6 @@ namespace TodoAppPhase3.BLL
         internal void RollBack()
         {
             _unitOfWork.RollBack();
-        }
-
-        internal Author GetAuthor(int id)
-        {
-            return _unitOfWork.AuthorRepository.GetById(id);
         }
     }
 }

@@ -52,15 +52,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLL\Author.cs" />
+    <Compile Include="BLL\Model\Author.cs" />
+    <Compile Include="BLL\BLLAuthor.cs" />
+    <Compile Include="BLL\BLLTask.cs" />
     <Compile Include="BLL\BusinessLogic.cs" />
-    <Compile Include="BLL\Task.cs" />
+    <Compile Include="BLL\Model\Task.cs" />
     <Compile Include="BLL\DataContext.cs" />
     <Compile Include="BLL\TypeList.cs" />
     <Compile Include="DAL\GenericRepository.cs" />
     <Compile Include="DAL\IGenericRepository.cs" />
     <Compile Include="DAL\UnitOfWork.cs" />
-    <Compile Include="BLL\MessageBoxManager.cs" />
+    <Compile Include="View\MessageBoxManager.cs" />
     <Compile Include="Migrations\201906240357219_AddAuthor.cs" />
     <Compile Include="Migrations\201906240357219_AddAuthor.Designer.cs">
       <DependentUpon>201906240357219_AddAuthor.cs</DependentUpon>
